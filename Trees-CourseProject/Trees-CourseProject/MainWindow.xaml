@@ -5,8 +5,45 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Trees_CourseProject"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Width="1080" Height="720">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Левая колонка для меню выбора типа дерева и ввода узлов -->
+        <StackPanel Grid.Column="0" Margin="10">
+            <!-- Меню выбора типа дерева -->
+            <ComboBox x:Name="TreeTypeComboBox" Margin="0,0,0,10" SelectionChanged="TreeTypeComboBox_SelectionChanged">
+                <ComboBoxItem Content="Бинарное дерево поиска"/>
+                <ComboBoxItem Content="AVL-дерево"/>
+                <ComboBoxItem Content="Красно-черное дерево"/>
+            </ComboBox>
+
+            <!-- Ввод узла дерева и действия с ним -->
+            <TextBox x:Name="nodeInputTextBox" Margin="0,0,0,10" TextChanged="TextBox_TextChanged">
+                <TextBox.Style>
+                    <Style TargetType="TextBox">
+                        <Style.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="Foreground" Value="Black"/>
+                            </Trigger>
+                            <Trigger Property="IsFocused" Value="False">
+                                <Setter Property="Foreground" Value="LightGray"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
+
+            <Button Content="Добавить" Margin="0,0,0,5" Click="AddButton_Click"/>
+            <Button Content="Удалить" Margin="0,0,0,5" Click="DeleteButton_Click"/>
+            <Button Content="Поиск" Margin="0,0,0,5" Click="SearchButton_Click"/>
+            <!-- Другие действия с узлами можно добавить по мере необходимости -->
+        </StackPanel>
+
+        <!-- Правая колонка для отрисовки дерева -->
+        <Canvas x:Name="canvas" Grid.Column="1" Margin="10"/>
     </Grid>
 </Window>
