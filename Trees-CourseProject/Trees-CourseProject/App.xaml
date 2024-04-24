@@ -5,7 +5,7 @@
              StartupUri="SplashScreen.xaml">
 
     <Application.MainWindow>
-        <local:MainWindow Visibility="Visible" />
+        <local:MainWindow Visibility="Hidden" />
     </Application.MainWindow>
     
     <Application.Resources>
