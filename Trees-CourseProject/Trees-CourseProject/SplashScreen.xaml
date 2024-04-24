@@ -1,0 +1,8 @@
+<Window x:Class="Trees_CourseProject.SplashScreen"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="SplashScreen" WindowStyle="None" AllowsTransparency="True" Background="Transparent">
+    <Grid>
+        <Image Source="mytreescreen.jpg" Stretch="Fill"/>
+    </Grid>
+</Window>

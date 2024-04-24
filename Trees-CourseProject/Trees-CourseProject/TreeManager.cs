@@ -35,7 +35,6 @@ namespace Trees_CourseProject
                 case TreeType.RedBlackTree:     redBlackTree.Insert(value);     break; 
                 default: throw new ArgumentException("Неподдерживаемый тип дерева!");
             }
-            // treeDrawer.Draw();
         }
 
         public void Delete(int value, TreeType treeType) 
@@ -47,7 +46,6 @@ namespace Trees_CourseProject
                 case TreeType.RedBlackTree:     redBlackTree.Delete(value);     break;
                 default: throw new ArgumentException("Неподдерживаемый тип дерева!");
             }
-            // treemanager.draw();
         }
 
         public bool Search(int value, TreeType treeType) 

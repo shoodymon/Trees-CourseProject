@@ -430,7 +430,7 @@ namespace Trees_CourseProject
         }
 
     }
-    
+
     public class RedBlackTree
     {
         public enum Color { Red, Black }
@@ -687,7 +687,6 @@ namespace Trees_CourseProject
                 return node.Parent.Left;
         }
 
-        // Метод для поворота узла влево
         private RBNode LeftRotate(RBNode node)
         {
             RBNode newRoot = node.Right;
@@ -706,7 +705,6 @@ namespace Trees_CourseProject
             return newRoot;
         }
 
-        // Метод для поворота узла вправо
         private RBNode RightRotate(RBNode node)
         {
             RBNode newRoot = node.Left;
@@ -724,7 +722,6 @@ namespace Trees_CourseProject
             node.Parent = newRoot;
             return newRoot;
         }
-
 
     }
 

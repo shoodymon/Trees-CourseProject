@@ -19,7 +19,6 @@ namespace Trees_CourseProject
             this.canvas = canvas;
         }
 
-        // Метод для отрисовки узла
         private void DrawNode(int nodeValue, double x, double y, Brush color)
         {
             // Отрисовываем узел
@@ -49,7 +48,6 @@ namespace Trees_CourseProject
             canvas.Children.Add(border);
         }
 
-        // Метод для отрисовки стрелки
         private void DrawArrow(double x1, double y1, double x2, double y2, double arrowLength)
         {
             Line line = new Line();
