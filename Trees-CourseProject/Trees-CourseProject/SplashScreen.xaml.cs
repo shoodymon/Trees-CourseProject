@@ -10,16 +10,17 @@ namespace Trees_CourseProject
         public SplashScreen()
         {
             InitializeComponent();
-            Loaded += SplashScreen_Loaded;
+            Loaded += SplashScreenLoadedAsync;
         }
 
-        private async void SplashScreen_Loaded(object sender, RoutedEventArgs e)
+        private async void SplashScreenLoadedAsync(object sender, RoutedEventArgs e)
         {
             // Анимация появления окна
             DoubleAnimation fadeInAnimation = new DoubleAnimation();
             fadeInAnimation.From = 0;
             fadeInAnimation.To = 1;
-            fadeInAnimation.Duration = TimeSpan.FromSeconds(2); // Продолжительность анимации в секундах
+            // fadeInAnimation.Duration = TimeSpan.FromSeconds(2); // Продолжительность анимации в секундах
+            fadeInAnimation.Duration = new Duration(TimeSpan.FromSeconds(2));
             this.BeginAnimation(Window.OpacityProperty, fadeInAnimation);
 
             // Ожидание завершения анимации
@@ -29,9 +30,18 @@ namespace Trees_CourseProject
             DoubleAnimation fadeOutAnimation = new DoubleAnimation();
             fadeOutAnimation.From = 1;
             fadeOutAnimation.To = 0;
-            fadeOutAnimation.Duration = TimeSpan.FromSeconds(2); // Продолжительность анимации в секундах
+            //fadeOutAnimation.Duration = TimeSpan.FromSeconds(2); // Продолжительность анимации в секундах
+            fadeOutAnimation.Duration = new Duration(TimeSpan.FromSeconds(2));
             fadeOutAnimation.Completed += (s, args) => this.Close();
             this.BeginAnimation(Window.OpacityProperty, fadeOutAnimation);
+
+            // Ожидание завершения анимации
+            await Task.Delay(2000);
+            this.Close();
+
+            var mainWindow = new MainWindow();
+            mainWindow.Show();
+            Application.Current.MainWindow = mainWindow;
         }
     }
 }
