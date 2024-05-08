@@ -105,5 +105,20 @@
   <ItemGroup>
     <Resource Include="mytreescreen.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="StartUpMenuImage.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="BinarySearchTree.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="AVLtree.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="TreeSelectionMenuImage.jpeg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="RBtree.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

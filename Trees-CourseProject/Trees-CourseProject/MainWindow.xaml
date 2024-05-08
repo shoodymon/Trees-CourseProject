@@ -6,43 +6,403 @@
         xmlns:local="clr-namespace:Trees_CourseProject"
         mc:Ignorable="d"
         Title="MainWindow" Width="1080" Height="720" WindowStartupLocation="CenterScreen">
+
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
+        <!-- Добавленный TabControl -->
+        <TabControl x:Name="MainTabControl" Grid.Row="0" BorderThickness="0">
 
-        <!-- Левая колонка для меню выбора типа дерева и ввода узлов -->
-        <StackPanel Grid.Column="0" Margin="10">
-            <!-- Меню выбора типа дерева -->
-            <ComboBox x:Name="TreeTypeComboBox" Margin="0,0,0,10" SelectionChanged="TreeTypeComboBox_SelectionChanged">
-                <ComboBoxItem Content="Бинарное дерево поиска"/>
-                <ComboBoxItem Content="AVL-дерево"/>
-                <ComboBoxItem Content="Красно-черное дерево"/>
-            </ComboBox>
+            <!-- Вкладка 1 -->
+            <TabItem Header="Tab 1">
+                <!-- Содержимое первой вкладки -->
+                <!-- Оставшаяся часть, которая была внутри Grid -->
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
 
-            <!-- Ввод узла дерева и действия с ним -->
-            <TextBox x:Name="nodeInputTextBox" Margin="0,0,0,10" TextChanged="TextBox_TextChanged">
-                <TextBox.Style>
-                    <Style TargetType="TextBox">
-                        <Style.Triggers>
-                            <Trigger Property="IsFocused" Value="True">
-                                <Setter Property="Foreground" Value="Black"/>
-                            </Trigger>
-                            <Trigger Property="IsFocused" Value="False">
-                                <Setter Property="Foreground" Value="LightGray"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </TextBox.Style>
-            </TextBox>
+                    <!-- Левая колонка для меню выбора типа дерева и ввода узлов -->
+                    <StackPanel Grid.Column="0" Margin="10">
+                        <!-- Меню выбора типа дерева -->
+                        <ComboBox x:Name="TreeTypeComboBox" Margin="0,0,0,10" SelectionChanged="TreeTypeComboBox_SelectionChanged">
+                            <ComboBoxItem Content="Бинарное дерево поиска"/>
+                            <ComboBoxItem Content="AVL-дерево"/>
+                            <ComboBoxItem Content="Красно-черное дерево"/>
+                        </ComboBox>
 
-            <Button Content="Добавить" Margin="0,0,0,5" Click="AddButton_Click"/>
-            <Button Content="Удалить" Margin="0,0,0,5" Click="DeleteButton_Click"/>
-            <Button Content="Поиск" Margin="0,0,0,5" Click="SearchButton_Click"/>
-        </StackPanel>
+                        <!-- Ввод узла дерева и действия с ним -->
+                        <TextBox x:Name="nodeInputTextBox" Margin="0,0,0,10" TextChanged="TextBox_TextChanged">
+                            <TextBox.Style>
+                                <Style TargetType="TextBox">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsFocused" Value="True">
+                                            <Setter Property="Foreground" Value="Black"/>
+                                        </Trigger>
+                                        <Trigger Property="IsFocused" Value="False">
+                                            <Setter Property="Foreground" Value="LightGray"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBox.Style>
+                        </TextBox>
 
-        <!-- Правая колонка для отрисовки дерева -->
-        <Canvas x:Name="canvas" Grid.Column="1" Margin="10"/>
+                        <Button Content="Добавить" Margin="0,0,0,5" Click="AddButton_Click"/>
+                        <Button Content="Удалить" Margin="0,0,0,5" Click="DeleteButton_Click"/>
+                        <Button Content="Поиск" Margin="0,0,0,5" Click="SearchButton_Click"/>
+                    </StackPanel>
+
+                    <!-- Правая колонка для отрисовки дерева -->
+                    <Canvas x:Name="canvas" Grid.Column="1" Margin="10"/>
+                </Grid>
+            </TabItem>
+
+            <!-- Вкладка стартового главного меню -->
+            <TabItem x:Name="StartUpMenu">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Ellipse Height="10" Width="10" Fill="Black" />
+                        <TextBlock Margin="3">StartUpMenu</TextBlock>
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid>
+                    <Grid.Background>
+                        <ImageBrush ImageSource="StartUpMenuImage.jpg" Stretch="Fill"/>
+                    </Grid.Background>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <!-- Меню -->
+                    <TextBlock Text="МЕНЮ" Margin="0,75,0,50" FontSize="48" HorizontalAlignment="Center" FontWeight="Bold" Foreground="Aqua">
+                        <TextBlock.Effect>
+                            <DropShadowEffect/>
+                        </TextBlock.Effect>
+                    </TextBlock>
+                    <!-- Кнопка "Деревья" -->
+                    <Button x:Name="TreesButton" Content="Деревья" Margin="0,70,0,20" Grid.Row="1" Width="200" Height="50" FontSize="24" Background="CornflowerBlue" BorderThickness="3" HorizontalAlignment="Center" Click="TreesButton_Click" FontWeight="Bold">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Trigger.EnterActions>
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <DoubleAnimation Storyboard.TargetProperty="Width" To="220" Duration="0:0:0.2"/>
+                                                    <ThicknessAnimation Storyboard.TargetProperty="Margin" To="-20,70,-20,20" Duration="0:0:0.2"/>
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </Trigger.EnterActions>
+                                        <Trigger.ExitActions>
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <DoubleAnimation Storyboard.TargetProperty="Width" To="200" Duration="0:0:0.2"/>
+                                                    <ThicknessAnimation Storyboard.TargetProperty="Margin" To="0,70,0,20" Duration="0:0:0.2"/>
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </Trigger.ExitActions>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                    <!-- Кнопка "Настройки" -->
+                    <Button x:Name="SettingsButton" Content="Настройки" Margin="0,20,0,20" Grid.Row="2" Width="200" Height="50" FontSize="24" Background="CornflowerBlue" BorderThickness="3" HorizontalAlignment="Center" Click="SettingsButton_Click" FontWeight="Bold">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Trigger.EnterActions>
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <DoubleAnimation Storyboard.TargetProperty="Width" To="220" Duration="0:0:0.2"/>
+                                                    <ThicknessAnimation Storyboard.TargetProperty="Margin" To="-20,20,-20,20" Duration="0:0:0.2"/>
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </Trigger.EnterActions>
+                                        <Trigger.ExitActions>
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <DoubleAnimation Storyboard.TargetProperty="Width" To="200" Duration="0:0:0.2"/>
+                                                    <ThicknessAnimation Storyboard.TargetProperty="Margin" To="0,20,0,20" Duration="0:0:0.2"/>
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </Trigger.ExitActions>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                    <!-- Кнопка "Выход" -->
+                    <Button x:Name="ExitButton" Content="Выход" Margin="0,20,0,20" Grid.Row="3" Width="200" Height="50" FontSize="24" Background="CornflowerBlue" BorderThickness="3" HorizontalAlignment="Center" Click="ExitButton_Click" FontWeight="Bold">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Trigger.EnterActions>
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <DoubleAnimation Storyboard.TargetProperty="Width" To="220" Duration="0:0:0.2"/>
+                                                    <ThicknessAnimation Storyboard.TargetProperty="Margin" To="-20,20,-20,20" Duration="0:0:0.2"/>
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </Trigger.EnterActions>
+                                        <Trigger.ExitActions>
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <DoubleAnimation Storyboard.TargetProperty="Width" To="200" Duration="0:0:0.2"/>
+                                                    <ThicknessAnimation Storyboard.TargetProperty="Margin" To="0,20,0,20" Duration="0:0:0.2"/>
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </Trigger.ExitActions>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                </Grid>
+            </TabItem>
+
+            <!-- Вкладка меню выбора деревьев -->
+            <TabItem x:Name="TreeSelectionMenu">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Ellipse Height="10" Width="10" Fill="Black" />
+                        <TextBlock Margin="3">TreeSelectionMenu</TextBlock>
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid>
+                    <Grid.Background>
+                        <ImageBrush ImageSource="TreeSelectionMenuImage.jpeg" Stretch="Fill"/>
+                    </Grid.Background>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="100"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="100"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="Выбор дерева" Grid.Row="0" Margin ="0,0,0,15" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Aqua" FontWeight="Bold">
+                        <TextBlock.Effect>
+                            <DropShadowEffect/>
+                        </TextBlock.Effect>
+                    </TextBlock>
+
+                    <StackPanel Grid.Row="1" Orientation="Horizontal">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Button x:Name="BSTreeButton" Grid.Column="0" Width="200" Height="250" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="80" FontSize="22" BorderBrush="Black" BorderThickness="5" Click="BSTreeButton_Click">
+                                <TextBlock TextAlignment="Center" Foreground="Black" FontWeight="Bold" FontSize="24"> Бинарное <LineBreak/> дерево поиска</TextBlock>
+                                <Button.Background>
+                                    <VisualBrush>
+                                        <VisualBrush.Visual>
+                                            <!-- Изображение с размытием -->
+                                            <Image Source="BinarySearchTree.png">
+                                                <Image.Effect>
+                                                    <!-- Фильтр размытия для изображения -->
+                                                    <BlurEffect Radius="10" KernelType="Box"/>
+                                                </Image.Effect>
+                                            </Image>
+                                        </VisualBrush.Visual>
+                                    </VisualBrush>
+                                </Button.Background>
+                            </Button>
+
+                            <Button x:Name="AVLtreeButton" Content="АВЛ - дерево" Grid.Column="1" Width="200" Height="250" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="80" FontSize="22" FontWeight="Bold" BorderBrush="Black" BorderThickness="5" Click="AVLtreeButton_Click" >
+                                <Button.Background>
+                                    <VisualBrush>
+                                        <VisualBrush.Visual>
+                                            <!-- Изображение с размытием -->
+                                            <Image Source="AVLtree.png">
+                                                <Image.Effect>
+                                                    <!-- Фильтр размытия для изображения -->
+                                                    <BlurEffect Radius="15" KernelType="Box"/>
+                                                </Image.Effect>
+                                            </Image>
+                                        </VisualBrush.Visual>
+                                    </VisualBrush>
+                                </Button.Background>
+                            </Button>
+
+                            <Button x:Name="RBtreeButton" Content="КЧ - дерево" Grid.Column="2" Width="200" Height="250" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="80" FontSize="22" FontWeight="Bold" BorderBrush="Black" BorderThickness="5" Foreground="Blue" Click="RBtreeButton_Click">
+                                <Button.Background>
+                                    <VisualBrush>
+                                        <VisualBrush.Visual>
+                                            <!-- Изображение с размытием -->
+                                            <Image Source="RBtree.png">
+                                                <Image.Effect>
+                                                    <!-- Фильтр размытия для изображения -->
+                                                    <BlurEffect Radius="15" KernelType="Box"/>
+                                                </Image.Effect>
+                                            </Image>
+                                        </VisualBrush.Visual>
+                                    </VisualBrush>
+                                </Button.Background>
+                            </Button>
+                        </Grid>
+                    </StackPanel>
+
+                    <Button x:Name="BackToMenuButton" Grid.Row="2" Content="Назад" HorizontalAlignment="Center" Width="200" Height="50" BorderBrush="Black" BorderThickness="3" FontSize="18" FontWeight="Bold" Click="BackToMenuButton_Click"/>
+                </Grid>
+            </TabItem>
+
+            <!-- Меню выбора деревьев / бинарное дерево поиска -->
+            <TabItem x:Name="BSTree">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Ellipse Height="10" Width="10" Fill="Black" />
+                        <TextBlock Margin="3">BSTree</TextBlock>
+                    </StackPanel>
+                </TabItem.Header>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="7*"/>
+                    </Grid.ColumnDefinitions>
+                    <GridSplitter Grid.Row="1" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" VerticalAlignment="Top" Background="LightGoldenrodYellow" ShowsPreview="true" ResizeDirection="Rows" Height="50"/>
+                    <StackPanel Grid.Column="0" Background="LightGray">
+                        <TextBlock Text="Бинарное дерево поиска" Grid.Row="0" Margin="0,20,0,15" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                        <TextBlock Text="Узел" Grid.Row="0" Margin="0,5,0,10" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                        <TextBox x:Name="BSTnodeInputTextBox" Margin="0,0,0,10">
+                            <TextBox.Style>
+                                <Style TargetType="TextBox">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsFocused" Value="True">
+                                            <Setter Property="Foreground" Value="Black"/>
+                                        </Trigger>
+                                        <Trigger Property="IsFocused" Value="False">
+                                            <Setter Property="Foreground" Value="LightGray"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBox.Style>
+                        </TextBox>
+                        <Button x:Name="BSTreeAdd" Content="Добавить" Margin="5,0,5,5" Click="BSTreeAdd_Click"/>
+                        <Button x:Name="BSTreeDelete" Content="Удалить" Margin="5,0,5,5" Click="BSTreeDelete_Click"/>
+                        <Button x:Name="BSTreeSearch" Content="Поиск" Margin="5,0,5,5" Click="BSTreeSearch_Click"/>
+                    </StackPanel>
+                    <Canvas x:Name="BSTcanvas" Grid.Column="1" Background="Transparent" ClipToBounds="True">
+                        <!-- Здесь будет отрисовываться дерево -->
+                    </Canvas>
+                    <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                        <ScrollViewer.Content>
+                            <Canvas x:Name="BSTcanvasContainer" Background="Transparent" ClipToBounds="True"/>
+                        </ScrollViewer.Content>
+                    </ScrollViewer>
+                </Grid>
+
+            </TabItem>
+            <!-- Меню выбора деревьев / КЧ-дерево -->
+            <TabItem x:Name="RBtree">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Ellipse Height="10" Width="10" Fill="Black" />
+                        <TextBlock Margin="3">RBtree</TextBlock>
+                    </StackPanel>
+                </TabItem.Header>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="7*"/>
+                    </Grid.ColumnDefinitions>
+                    <GridSplitter Grid.Row="1" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" VerticalAlignment="Top" Background="LightGoldenrodYellow" ShowsPreview="true" ResizeDirection="Rows" Height="50"/>
+                    <StackPanel Grid.Column="0" Background="LightGray">
+                        <TextBlock Text="КЧ-дерево" Grid.Row="0" Margin="0,20,0,15" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                        <TextBlock Text="Узел" Grid.Row="0" Margin="0,5,0,10" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                        <TextBox x:Name="RBnodeInputTextBox" Margin="0,0,0,10">
+                            <TextBox.Style>
+                                <Style TargetType="TextBox">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsFocused" Value="True">
+                                            <Setter Property="Foreground" Value="Black"/>
+                                        </Trigger>
+                                        <Trigger Property="IsFocused" Value="False">
+                                            <Setter Property="Foreground" Value="LightGray"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBox.Style>
+                        </TextBox>
+                        <Button x:Name="RBreeAdd" Content="Добавить" Margin="5,0,5,5" Click="RBreeAdd_Click"/>
+                        <Button x:Name="RBreeDelete" Content="Удалить" Margin="5,0,5,5" Click="RBreeDelete_Click"/>
+                        <Button x:Name="RBtreeSearch" Content="Поиск" Margin="5,0,5,5" Click="RBtreeSearch_Click"/>
+                    </StackPanel>
+                    <Canvas x:Name="RBcanvas" Grid.Column="1" Background="Transparent" ClipToBounds="True">
+                        <!-- Здесь будет отрисовываться дерево -->
+                    </Canvas>
+                    <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                        <ScrollViewer.Content>
+                            <Canvas x:Name="RBcanvasContainer" Background="Transparent" ClipToBounds="True"/>
+                        </ScrollViewer.Content>
+                    </ScrollViewer>
+                </Grid>
+            </TabItem>
+            <!-- Меню выбора деревьев / АВЛ-дерево -->
+            <TabItem x:Name="AVLtree">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Ellipse Height="10" Width="10" Fill="Black" />
+                        <TextBlock Margin="3">AVLtree</TextBlock>
+                    </StackPanel>
+                </TabItem.Header>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="135*"/>
+                        <ColumnDefinition Width="163*"/>
+                        <ColumnDefinition Width="56*"/>
+                        <ColumnDefinition Width="723*"/>
+                    </Grid.ColumnDefinitions>
+                    <GridSplitter Grid.ColumnSpan="4" HorizontalAlignment="Stretch" VerticalAlignment="Top" Background="LightGoldenrodYellow" ShowsPreview="true" ResizeDirection="Rows" Height="50"/>
+                    <StackPanel Grid.Column="0" Background="LightGray" Grid.ColumnSpan="2" Margin="0,0,163,0">
+                        <TextBlock Text="АВЛ-дерево" Grid.Row="0" Margin="0,20,0,15" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                        <TextBlock Text="Узел" Grid.Row="0" Margin="0,5,0,10" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                        <TextBox x:Name="AVLnodeInputTextBox" Margin="0,0,0,10">
+                            <TextBox.Style>
+                                <Style TargetType="TextBox">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsFocused" Value="True">
+                                            <Setter Property="Foreground" Value="Black"/>
+                                        </Trigger>
+                                        <Trigger Property="IsFocused" Value="False">
+                                            <Setter Property="Foreground" Value="LightGray"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBox.Style>
+                        </TextBox>
+                        <Button x:Name="AVLtreeAdd" Content="Добавить" Margin="5,0,5,5" Click="AVLtreeAdd_Click"/>
+                        <Button x:Name="AVLtreeDelete" Content="Удалить" Margin="5,0,5,5" Click="AVLtreeDelete_Click"/>
+                        <Button x:Name="AVLtreeSearch" Content="Поиск" Margin="5,0,5,5" Click="AVLtreeSearch_Click"/>
+                    </StackPanel>
+                    <Canvas x:Name="AVLcanvas" Background="Transparent" ClipToBounds="True" Grid.ColumnSpan="4" Margin="134,0,0,0">
+                        <!-- Здесь будет отрисовываться дерево -->
+                    </Canvas>
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Grid.ColumnSpan="4" Margin="134,0,0,0">
+                        <ScrollViewer.Content>
+                            <Canvas x:Name="AVLcanvasContainer" Background="Transparent" ClipToBounds="True"/>
+                        </ScrollViewer.Content>
+                    </ScrollViewer>
+                </Grid>
+            </TabItem>
+            <!-- Главное меню / Настройки -->
+            <TabItem x:Name="Settings">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Ellipse Height="10" Width="10" Fill="Black" />
+                        <TextBlock Margin="3">Settings</TextBlock>
+                    </StackPanel>
+                </TabItem.Header>
+            </TabItem>
+        </TabControl>
+
     </Grid>
 </Window>

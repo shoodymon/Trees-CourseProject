@@ -73,7 +73,7 @@ namespace Trees_CourseProject
             canvas.Children.Add(polygon);
         }
 
-        public void DrawBinarySearchTree(BinarySearchTree.TreeNode root)
+        public void DrawBinarySearchTree(BinarySearchTree.TreeNode root, Canvas canvas)
         {
             canvas.Children.Clear(); // Очищаем холст перед отрисовкой нового дерева
             if (root != null)
@@ -82,7 +82,7 @@ namespace Trees_CourseProject
             }
         }
 
-        public void DrawAVLTree(AVLTree.AVLNode root)
+        public void DrawAVLTree(AVLTree.AVLNode root, Canvas canvas)
         {
             canvas.Children.Clear();
             if (root != null)
@@ -91,7 +91,7 @@ namespace Trees_CourseProject
             }
         }
 
-        public void DrawRedBlackTree(RedBlackTree.RBNode root)
+        public void DrawRedBlackTree(RedBlackTree.RBNode root, Canvas canvas)
         {
             canvas.Children.Clear();
             if (root != null)

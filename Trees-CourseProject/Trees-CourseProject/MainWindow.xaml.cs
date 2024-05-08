@@ -328,6 +328,7 @@ namespace Trees_CourseProject
         public void Insert(int value)
         {
             root = Insert(root, value);
+            Console.WriteLine($"Inserted node with value {value}");
         }
 
         private AVLNode Delete(AVLNode root, int key)
@@ -733,11 +734,27 @@ namespace Trees_CourseProject
         private TreeManager treeManager;
         private TreeDrawer treeDrawer;
 
+        private TreeManager binarySearchTreeManager;
+        private TreeManager avlTreeManager;
+        private TreeManager redBlackTreeManager;
+
+        private TreeDrawer binarySearchTreeDrawer;
+        private TreeDrawer avlTreeDrawer;
+        private TreeDrawer redBlackTreeDrawer;
+
         public MainWindow()
         {
             InitializeComponent();
             treeManager = new TreeManager(canvas);
             treeDrawer = new TreeDrawer(canvas);
+
+            binarySearchTreeManager = new TreeManager(BSTcanvas);
+            avlTreeManager = new TreeManager(AVLcanvas);
+            redBlackTreeManager = new TreeManager(RBcanvas);
+
+            binarySearchTreeDrawer = new TreeDrawer(BSTcanvas);
+            avlTreeDrawer = new TreeDrawer(AVLcanvas);
+            redBlackTreeDrawer = new TreeDrawer(RBcanvas);
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -809,17 +826,219 @@ namespace Trees_CourseProject
             switch (treeType)
             {
                 case TreeType.BinarySearchTree:
-                    treeDrawer.DrawBinarySearchTree(treeManager.binarySearchTree.root);
+                    if (MainTabControl.SelectedItem == BSTree)
+                    {
+                        treeDrawer.DrawBinarySearchTree(treeManager.binarySearchTree.root, BSTcanvas);
+                    }
                     break;
                 case TreeType.AVLTree:
-                    treeDrawer.DrawAVLTree(treeManager.avlTree.root);
+                    if (MainTabControl.SelectedItem == AVLtree)
+                    {
+                        treeDrawer.DrawAVLTree(treeManager.avlTree.root, AVLcanvas);
+                    }
                     break;
                 case TreeType.RedBlackTree:
-                    treeDrawer.DrawRedBlackTree(treeManager.redBlackTree.root);
+                    if (MainTabControl.SelectedItem == RBtree)
+                    {
+                        treeDrawer.DrawRedBlackTree(treeManager.redBlackTree.root, RBcanvas);
+                    }
                     break;
             }
         }
 
+
+        private void UpdateTreeDrawingTabItem(TreeType treeType)
+        {
+            switch (treeType)
+            {
+                case TreeType.BinarySearchTree:
+                    if (MainTabControl.SelectedItem == BSTree)
+                    {
+                        MessageBox.Show("Hello vse ok BS");
+                        treeDrawer.DrawBinarySearchTree(treeManager.binarySearchTree.root, BSTcanvas);
+                    }
+                    break;
+                case TreeType.AVLTree:
+                    if (MainTabControl.SelectedItem == AVLtree)
+                    {
+                        MessageBox.Show("Hello vse ok AVL");
+                        treeDrawer.DrawAVLTree(treeManager.avlTree.root, AVLcanvas);
+                    }
+                    break;
+                case TreeType.RedBlackTree:
+                    if (MainTabControl.SelectedItem == RBtree)
+                    {
+                        MessageBox.Show("Hello vse ok RB");
+                        treeDrawer.DrawRedBlackTree(treeManager.redBlackTree.root, RBcanvas);
+                    }
+                    break;
+            }
+        }
+
+
+
+        private void TreesButton_Click(object sender, RoutedEventArgs e)
+        {
+            TabControl mainTabControl = this.MainTabControl;
+            if (mainTabControl != null)
+            {
+                mainTabControl.SelectedItem = mainTabControl.Items.OfType<TabItem>().FirstOrDefault(t => t.Name == "TreeSelectionMenu");
+            }
+        }
+
+        private void SettingsButton_Click(object sender, RoutedEventArgs e)
+        {
+            TabControl mainTabControl = this.MainTabControl;
+            if (mainTabControl != null)
+            {
+                mainTabControl.SelectedItem = mainTabControl.Items.OfType<TabItem>().FirstOrDefault(t => t.Name == "Settings");
+            }
+        }
+
+        private void ExitButton_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
+        private void BSTreeButton_Click(object sender, RoutedEventArgs e)
+        {
+            MainTabControl.SelectedItem = BSTree;
+            UpdateTreeDrawingTabItem(TreeType.BinarySearchTree);
+            // дернем отрисовку
+        }
+
+        private void AVLtreeButton_Click(object sender, RoutedEventArgs e)
+        {
+            MainTabControl.SelectedItem = AVLtree;
+            UpdateTreeDrawingTabItem(TreeType.AVLTree);
+            //treeDrawer.DrawAVLTree(treeManager.avlTree.root, AVLcanvas);
+        }
+
+        private void RBtreeButton_Click(object sender, RoutedEventArgs e)
+        {
+            MainTabControl.SelectedItem = RBtree;
+            UpdateTreeDrawingTabItem(TreeType.RedBlackTree);
+            //treeDrawer.DrawRedBlackTree(treeManager.redBlackTree.root, RBcanvas);
+        }
+
+        private void BackToMenuButton_Click(object sender, RoutedEventArgs e)
+        {
+            MainTabControl.SelectedItem = StartUpMenu;
+        }
+
+        private void BSTreeAdd_Click(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(BSTnodeInputTextBox.Text))
+            {
+                int value = int.Parse(BSTnodeInputTextBox.Text);
+                treeManager.Insert(value, TreeType.BinarySearchTree);
+                UpdateTreeDrawingTabItem(TreeType.BinarySearchTree);
+            }
+        }
+
+        private void BSTreeDelete_Click(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(BSTnodeInputTextBox.Text))
+            {
+                int value = int.Parse(BSTnodeInputTextBox.Text);
+                treeManager.Delete(value, TreeType.BinarySearchTree);
+                UpdateTreeDrawingTabItem(TreeType.BinarySearchTree);
+            }
+        }
+
+        private void BSTreeSearch_Click(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(BSTnodeInputTextBox.Text))
+            {
+                int value = int.Parse(BSTnodeInputTextBox.Text);
+                bool found = treeManager.Search(value, TreeType.BinarySearchTree);
+
+                if (found)
+                {
+                    MessageBox.Show($"Узел со значением {value} найден в бинарном дереве поиска.", "Результат поиска", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                {
+                    MessageBox.Show($"Узел со значением {value} не найден в бинарном дереве поиска.", "Результат поиска", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
+        }
+        
+        private void RBreeAdd_Click(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(RBnodeInputTextBox.Text))
+            {
+                int value = int.Parse(RBnodeInputTextBox.Text);
+                treeManager.Insert(value, TreeType.RedBlackTree);
+                UpdateTreeDrawingTabItem(TreeType.RedBlackTree);
+            }
+        }
+
+        private void RBreeDelete_Click(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(RBnodeInputTextBox.Text))
+            {
+                int value = int.Parse(RBnodeInputTextBox.Text);
+                treeManager.Delete(value, TreeType.RedBlackTree);
+                UpdateTreeDrawingTabItem(TreeType.RedBlackTree);
+            }
+        }
+
+        private void RBtreeSearch_Click(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(RBnodeInputTextBox.Text))
+            {
+                int value = int.Parse(RBnodeInputTextBox.Text);
+                bool found = treeManager.Search(value, TreeType.RedBlackTree);
+
+                if (found)
+                {
+                    MessageBox.Show($"Узел со значением {value} найден в КЧ-дереве.", "Результат поиска", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                {
+                    MessageBox.Show($"Узел со значением {value} не найден в КЧ-дереве.", "Результат поиска", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
+        }
+
+        private void AVLtreeAdd_Click(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(AVLnodeInputTextBox.Text))
+            {
+                int value = int.Parse(AVLnodeInputTextBox.Text);
+                treeManager.Insert(value, TreeType.AVLTree);
+                UpdateTreeDrawingTabItem(TreeType.AVLTree);
+            }
+        }
+
+        private void AVLtreeDelete_Click(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(AVLnodeInputTextBox.Text))
+            {
+                int value = int.Parse(AVLnodeInputTextBox.Text);
+                treeManager.Delete(value, TreeType.AVLTree);
+                UpdateTreeDrawingTabItem(TreeType.AVLTree);
+            }
+        }
+
+        private void AVLtreeSearch_Click(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(AVLnodeInputTextBox.Text))
+            {
+                int value = int.Parse(AVLnodeInputTextBox.Text);
+                bool found = treeManager.Search(value, TreeType.AVLTree);
+
+                if (found)
+                {
+                    MessageBox.Show($"Узел со значением {value} найден в AVL-дереве.", "Результат поиска", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                {
+                    MessageBox.Show($"Узел со значением {value} не найден в AVL-дереве.", "Результат поиска", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
+        }
     }
 
 }
