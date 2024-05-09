@@ -746,15 +746,16 @@ namespace Trees_CourseProject
         {
             InitializeComponent();
             treeManager = new TreeManager(canvas);
-            treeDrawer = new TreeDrawer(canvas);
+            treeDrawer = new TreeDrawer();
 
-            binarySearchTreeManager = new TreeManager(BSTcanvas);
-            avlTreeManager = new TreeManager(AVLcanvas);
-            redBlackTreeManager = new TreeManager(RBcanvas);
+            binarySearchTreeManager = new TreeManager(BSTcanvas, null, null, binarySearchTreeDrawer);
+            avlTreeManager = new TreeManager(null, AVLcanvas, null, avlTreeDrawer);
+            redBlackTreeManager = new TreeManager(null, null, RBcanvas, redBlackTreeDrawer);
 
-            binarySearchTreeDrawer = new TreeDrawer(BSTcanvas);
-            avlTreeDrawer = new TreeDrawer(AVLcanvas);
-            redBlackTreeDrawer = new TreeDrawer(RBcanvas);
+            // Создание экземпляров TreeDrawer для каждого типа дерева
+            binarySearchTreeDrawer = new TreeDrawer();
+            avlTreeDrawer = new TreeDrawer();
+            redBlackTreeDrawer = new TreeDrawer();
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -852,29 +853,25 @@ namespace Trees_CourseProject
             switch (treeType)
             {
                 case TreeType.BinarySearchTree:
-                    if (MainTabControl.SelectedItem == BSTree)
+                    if (MainTabControl.SelectedItem == BSTree && binarySearchTreeManager.binarySearchTree != null)
                     {
-                        MessageBox.Show("Hello vse ok BS");
-                        treeDrawer.DrawBinarySearchTree(treeManager.binarySearchTree.root, BSTcanvas);
+                        binarySearchTreeDrawer.DrawBinarySearchTree(binarySearchTreeManager.binarySearchTree.root, BSTcanvas);
                     }
                     break;
                 case TreeType.AVLTree:
-                    if (MainTabControl.SelectedItem == AVLtree)
+                    if (MainTabControl.SelectedItem == AVLtree && avlTreeManager.avlTree != null)
                     {
-                        MessageBox.Show("Hello vse ok AVL");
-                        treeDrawer.DrawAVLTree(treeManager.avlTree.root, AVLcanvas);
+                        avlTreeDrawer.DrawAVLTree(avlTreeManager.avlTree.root, AVLcanvas);
                     }
                     break;
                 case TreeType.RedBlackTree:
-                    if (MainTabControl.SelectedItem == RBtree)
+                    if (MainTabControl.SelectedItem == RBtree && redBlackTreeManager.redBlackTree != null)
                     {
-                        MessageBox.Show("Hello vse ok RB");
-                        treeDrawer.DrawRedBlackTree(treeManager.redBlackTree.root, RBcanvas);
+                        redBlackTreeDrawer.DrawRedBlackTree(redBlackTreeManager.redBlackTree.root, RBcanvas);
                     }
                     break;
             }
         }
-
 
 
         private void TreesButton_Click(object sender, RoutedEventArgs e)
@@ -931,7 +928,7 @@ namespace Trees_CourseProject
             if (!string.IsNullOrEmpty(BSTnodeInputTextBox.Text))
             {
                 int value = int.Parse(BSTnodeInputTextBox.Text);
-                treeManager.Insert(value, TreeType.BinarySearchTree);
+                binarySearchTreeManager.Insert(value, TreeType.BinarySearchTree);
                 UpdateTreeDrawingTabItem(TreeType.BinarySearchTree);
             }
         }
@@ -941,7 +938,7 @@ namespace Trees_CourseProject
             if (!string.IsNullOrEmpty(BSTnodeInputTextBox.Text))
             {
                 int value = int.Parse(BSTnodeInputTextBox.Text);
-                treeManager.Delete(value, TreeType.BinarySearchTree);
+                binarySearchTreeManager.Delete(value, TreeType.BinarySearchTree);
                 UpdateTreeDrawingTabItem(TreeType.BinarySearchTree);
             }
         }
@@ -951,7 +948,7 @@ namespace Trees_CourseProject
             if (!string.IsNullOrEmpty(BSTnodeInputTextBox.Text))
             {
                 int value = int.Parse(BSTnodeInputTextBox.Text);
-                bool found = treeManager.Search(value, TreeType.BinarySearchTree);
+                bool found = binarySearchTreeManager.Search(value, TreeType.BinarySearchTree);
 
                 if (found)
                 {
@@ -969,7 +966,7 @@ namespace Trees_CourseProject
             if (!string.IsNullOrEmpty(RBnodeInputTextBox.Text))
             {
                 int value = int.Parse(RBnodeInputTextBox.Text);
-                treeManager.Insert(value, TreeType.RedBlackTree);
+                redBlackTreeManager.Insert(value, TreeType.RedBlackTree);
                 UpdateTreeDrawingTabItem(TreeType.RedBlackTree);
             }
         }
@@ -979,7 +976,7 @@ namespace Trees_CourseProject
             if (!string.IsNullOrEmpty(RBnodeInputTextBox.Text))
             {
                 int value = int.Parse(RBnodeInputTextBox.Text);
-                treeManager.Delete(value, TreeType.RedBlackTree);
+                redBlackTreeManager.Delete(value, TreeType.RedBlackTree);
                 UpdateTreeDrawingTabItem(TreeType.RedBlackTree);
             }
         }
@@ -989,7 +986,7 @@ namespace Trees_CourseProject
             if (!string.IsNullOrEmpty(RBnodeInputTextBox.Text))
             {
                 int value = int.Parse(RBnodeInputTextBox.Text);
-                bool found = treeManager.Search(value, TreeType.RedBlackTree);
+                bool found = redBlackTreeManager.Search(value, TreeType.RedBlackTree);
 
                 if (found)
                 {
@@ -1007,7 +1004,7 @@ namespace Trees_CourseProject
             if (!string.IsNullOrEmpty(AVLnodeInputTextBox.Text))
             {
                 int value = int.Parse(AVLnodeInputTextBox.Text);
-                treeManager.Insert(value, TreeType.AVLTree);
+                avlTreeManager.Insert(value, TreeType.AVLTree);
                 UpdateTreeDrawingTabItem(TreeType.AVLTree);
             }
         }
@@ -1017,7 +1014,7 @@ namespace Trees_CourseProject
             if (!string.IsNullOrEmpty(AVLnodeInputTextBox.Text))
             {
                 int value = int.Parse(AVLnodeInputTextBox.Text);
-                treeManager.Delete(value, TreeType.AVLTree);
+                avlTreeManager.Delete(value, TreeType.AVLTree);
                 UpdateTreeDrawingTabItem(TreeType.AVLTree);
             }
         }
@@ -1027,7 +1024,7 @@ namespace Trees_CourseProject
             if (!string.IsNullOrEmpty(AVLnodeInputTextBox.Text))
             {
                 int value = int.Parse(AVLnodeInputTextBox.Text);
-                bool found = treeManager.Search(value, TreeType.AVLTree);
+                bool found = avlTreeManager.Search(value, TreeType.AVLTree);
 
                 if (found)
                 {

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -12,14 +8,12 @@ namespace Trees_CourseProject
 {
     public class TreeDrawer
     {
-        private Canvas canvas;
-
-        public TreeDrawer(Canvas canvas)
+        public TreeDrawer()
         {
-            this.canvas = canvas;
+            // Конструктор по умолчанию
         }
 
-        private void DrawNode(int nodeValue, double x, double y, Brush color)
+        private void DrawNode(int nodeValue, double x, double y, Brush color, Canvas canvas)
         {
             // Отрисовываем узел
             Ellipse ellipse = new Ellipse();
@@ -48,7 +42,7 @@ namespace Trees_CourseProject
             canvas.Children.Add(border);
         }
 
-        private void DrawArrow(double x1, double y1, double x2, double y2, double arrowLength)
+        private void DrawArrow(double x1, double y1, double x2, double y2, double arrowLength, Canvas canvas)
         {
             Line line = new Line();
             line.Stroke = Brushes.Black;
@@ -78,7 +72,7 @@ namespace Trees_CourseProject
             canvas.Children.Clear(); // Очищаем холст перед отрисовкой нового дерева
             if (root != null)
             {
-                DrawBST(root, canvas.ActualWidth / 2, 20, canvas.ActualWidth / 4, 80);
+                DrawBST(root, canvas.ActualWidth / 2, 20, canvas.ActualWidth / 4, 80, canvas);
             }
         }
 
@@ -87,7 +81,7 @@ namespace Trees_CourseProject
             canvas.Children.Clear();
             if (root != null)
             {
-                DrawAVL(root, canvas.ActualWidth / 2, 20, canvas.ActualWidth / 4, 80);
+                DrawAVL(root, canvas.ActualWidth / 2, 20, canvas.ActualWidth / 4, 80, canvas);
             }
         }
 
@@ -96,55 +90,53 @@ namespace Trees_CourseProject
             canvas.Children.Clear();
             if (root != null)
             {
-                DrawRB(root, canvas.ActualWidth / 2, 20, canvas.ActualWidth / 4, 80);
+                DrawRB(root, canvas.ActualWidth / 2, 20, canvas.ActualWidth / 4, 80, canvas);
             }
         }
 
-        private void DrawBST(BinarySearchTree.TreeNode node, double x, double y, double offsetX, double offsetY)
+        private void DrawBST(BinarySearchTree.TreeNode node, double x, double y, double offsetX, double offsetY, Canvas canvas)
         {
-            DrawNode(node.Value, x, y, Brushes.LightGreen);
+            DrawNode(node.Value, x, y, Brushes.LightGreen, canvas);
             if (node.Left != null)
             {
-                DrawBST(node.Left, x - offsetX, y + offsetY, offsetX / 2, offsetY);
-                DrawArrow(x, y + 35, x - offsetX, y + offsetY, 10);
+                DrawBST(node.Left, x - offsetX, y + offsetY, offsetX / 2, offsetY, canvas);
+                DrawArrow(x, y + 35, x - offsetX, y + offsetY, 10, canvas);
             }
             if (node.Right != null)
             {
-                DrawBST(node.Right, x + offsetX, y + offsetY, offsetX / 2, offsetY);
-                DrawArrow(x, y + 35, x + offsetX, y + offsetY, 10);
+                DrawBST(node.Right, x + offsetX, y + offsetY, offsetX / 2, offsetY, canvas);
+                DrawArrow(x, y + 35, x + offsetX, y + offsetY, 10, canvas);
             }
         }
 
-        private void DrawAVL(AVLTree.AVLNode node, double x, double y, double offsetX, double offsetY)
+        private void DrawAVL(AVLTree.AVLNode node, double x, double y, double offsetX, double offsetY, Canvas canvas)
         {
-            DrawNode(node.Value, x, y, Brushes.LightBlue);
+            DrawNode(node.Value, x, y, Brushes.LightBlue, canvas);
             if (node.Left != null)
             {
-                DrawAVL(node.Left, x - offsetX, y + offsetY, offsetX / 2, offsetY);
-                DrawArrow(x, y + 35, x - offsetX, y + offsetY, 10);
+                DrawAVL(node.Left, x - offsetX, y + offsetY, offsetX / 2, offsetY, canvas);
+                DrawArrow(x, y + 35, x - offsetX, y + offsetY, 10, canvas);
             }
             if (node.Right != null)
             {
-                DrawAVL(node.Right, x + offsetX, y + offsetY, offsetX / 2, offsetY);
-                DrawArrow(x, y + 35, x + offsetX, y + offsetY, 10);
+                DrawAVL(node.Right, x + offsetX, y + offsetY, offsetX / 2, offsetY, canvas);
+                DrawArrow(x, y + 35, x + offsetX, y + offsetY, 10, canvas);
             }
         }
 
-        private void DrawRB(RedBlackTree.RBNode node, double x, double y, double offsetX, double offsetY)
+        private void DrawRB(RedBlackTree.RBNode node, double x, double y, double offsetX, double offsetY, Canvas canvas)
         {
-            DrawNode(node.Value, x, y, node.NodeColor == RedBlackTree.Color.Black ? Brushes.LightGray : Brushes.Red);
+            DrawNode(node.Value, x, y, node.NodeColor == RedBlackTree.Color.Black ? Brushes.LightGray : Brushes.Red, canvas);
             if (node.Left != null)
             {
-                DrawRB(node.Left, x - offsetX, y + offsetY, offsetX / 2, offsetY);
-                DrawArrow(x, y + 35, x - offsetX, y + offsetY, 10);
+                DrawRB(node.Left, x - offsetX, y + offsetY, offsetX / 2, offsetY, canvas);
+                DrawArrow(x, y + 35, x - offsetX, y + offsetY, 10, canvas);
             }
             if (node.Right != null)
             {
-                DrawRB(node.Right, x + offsetX, y + offsetY, offsetX / 2, offsetY);
-                DrawArrow(x, y + 35, x + offsetX, y + offsetY, 10);
+                DrawRB(node.Right, x + offsetX, y + offsetY, offsetX / 2, offsetY, canvas);
+                DrawArrow(x, y + 35, x + offsetX, y + offsetY, 10, canvas);
             }
         }
-
     }
-
 }

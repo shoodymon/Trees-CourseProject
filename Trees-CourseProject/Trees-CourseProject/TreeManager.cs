@@ -16,46 +16,112 @@ namespace Trees_CourseProject
         public RedBlackTree redBlackTree;
         public TreeDrawer treeDrawer;
         public Canvas canvas;
+        public Canvas BSTcanvas;
+        public Canvas AVLcanvas;
+        public Canvas RBcanvas;
 
+        /*
         public TreeManager(Canvas canvas)
-        { 
+        {
             this.canvas = canvas;
-            binarySearchTree = new BinarySearchTree(canvas);
-            avlTree = new AVLTree(canvas);
-            redBlackTree = new RedBlackTree(canvas);
-            treeDrawer = new TreeDrawer(canvas);
+            treeDrawer = new TreeDrawer();
+        }
+        */
+
+        // Конструкторы с именованными параметрами для каждого Canvas
+        public TreeManager(Canvas BSTcanvas = null, Canvas AVLcanvas = null, Canvas RBcanvas = null, TreeDrawer treeDrawer = null)
+        {
+            this.BSTcanvas = BSTcanvas;
+            this.AVLcanvas = AVLcanvas;
+            this.RBcanvas = RBcanvas;
+
+            if (BSTcanvas != null)
+            {
+                binarySearchTree = new BinarySearchTree(BSTcanvas); // Создание экземпляра бинарного дерева поиска
+                this.treeDrawer = treeDrawer; // Присваиваем переданный экземпляр TreeDrawer
+            }
+
+            if (AVLcanvas != null)
+            {
+                avlTree = new AVLTree(AVLcanvas); // Создание экземпляра АВЛ-дерева
+                this.treeDrawer = treeDrawer; 
+            }
+
+            if (RBcanvas != null)
+            {
+                redBlackTree = new RedBlackTree(RBcanvas); // Создание экземпляра КЧ-дерева
+                this.treeDrawer = treeDrawer; 
+            }
         }
 
-        public void Insert(int value, TreeType treeType) 
+
+        public void Insert(int value, TreeType treeType)
         {
             switch (treeType)
             {
-                case TreeType.BinarySearchTree: binarySearchTree.Insert(value); break;
-                case TreeType.AVLTree:          avlTree.Insert(value);          break;
-                case TreeType.RedBlackTree:     redBlackTree.Insert(value);     break; 
-                default: throw new ArgumentException("Неподдерживаемый тип дерева!");
+                case TreeType.BinarySearchTree:
+                    if (binarySearchTree != null)
+                    {
+                        binarySearchTree.Insert(value);
+                    }
+                    break;
+                case TreeType.AVLTree:
+                    if (avlTree != null)
+                    {
+                        avlTree.Insert(value);
+                    }
+                    break;
+                case TreeType.RedBlackTree:
+                    if (redBlackTree != null)
+                    {
+                        redBlackTree.Insert(value);
+                    }
+                    break;
+                default:
+                    throw new ArgumentException("Неподдерживаемый тип дерева!");
             }
         }
 
-        public void Delete(int value, TreeType treeType) 
+        public void Delete(int value, TreeType treeType)
         {
-            switch (treeType) 
+            switch (treeType)
             {
-                case TreeType.BinarySearchTree: binarySearchTree.Delete(value); break;
-                case TreeType.AVLTree:          avlTree.Delete(value);          break;
-                case TreeType.RedBlackTree:     redBlackTree.Delete(value);     break;
-                default: throw new ArgumentException("Неподдерживаемый тип дерева!");
+                case TreeType.BinarySearchTree:
+                    if (binarySearchTree != null)
+                    {
+                        binarySearchTree.Delete(value);
+                    }
+                    break;
+                case TreeType.AVLTree:
+                    if (avlTree != null)
+                    {
+                        avlTree.Delete(value);
+                    }
+                    break;
+                case TreeType.RedBlackTree:
+                    if (redBlackTree != null)
+                    {
+                        redBlackTree.Delete(value);
+                    }
+                    break;
+                default:
+                    throw new ArgumentException("Неподдерживаемый тип дерева!");
             }
         }
 
-        public bool Search(int value, TreeType treeType) 
-        { switch (treeType)
+        public bool Search(int value, TreeType treeType)
+        {
+            switch (treeType)
             {
-                case TreeType.BinarySearchTree: return binarySearchTree.Search(value);
-                case TreeType.AVLTree:          return avlTree.Search(value);
-                case TreeType.RedBlackTree:     return redBlackTree.Search(value);
-                default: throw new ArgumentException("Неподдерживаемый тип дерева!");
-            } 
+                case TreeType.BinarySearchTree:
+                    return binarySearchTree != null && binarySearchTree.Search(value);
+                case TreeType.AVLTree:
+                    return avlTree != null && avlTree.Search(value);
+                case TreeType.RedBlackTree:
+                    return redBlackTree != null && redBlackTree.Search(value);
+                default:
+                    throw new ArgumentException("Неподдерживаемый тип дерева!");
+            }
         }
 
     }
