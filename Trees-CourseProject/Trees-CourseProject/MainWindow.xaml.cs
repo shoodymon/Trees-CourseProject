@@ -873,7 +873,6 @@ namespace Trees_CourseProject
             }
         }
 
-
         private void TreesButton_Click(object sender, RoutedEventArgs e)
         {
             TabControl mainTabControl = this.MainTabControl;
