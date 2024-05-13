@@ -900,21 +900,18 @@ namespace Trees_CourseProject
         {
             MainTabControl.SelectedItem = BSTree;
             UpdateTreeDrawingTabItem(TreeType.BinarySearchTree);
-            // дернем отрисовку
         }
 
         private void AVLtreeButton_Click(object sender, RoutedEventArgs e)
         {
             MainTabControl.SelectedItem = AVLtree;
             UpdateTreeDrawingTabItem(TreeType.AVLTree);
-            //treeDrawer.DrawAVLTree(treeManager.avlTree.root, AVLcanvas);
         }
 
         private void RBtreeButton_Click(object sender, RoutedEventArgs e)
         {
             MainTabControl.SelectedItem = RBtree;
             UpdateTreeDrawingTabItem(TreeType.RedBlackTree);
-            //treeDrawer.DrawRedBlackTree(treeManager.redBlackTree.root, RBcanvas);
         }
 
         private void BackToMenuButton_Click(object sender, RoutedEventArgs e)
@@ -924,6 +921,9 @@ namespace Trees_CourseProject
 
         private void BSTreeAdd_Click(object sender, RoutedEventArgs e)
         {
+            string newNodeValue = BSTnodeInputTextBox.Text;
+            UserBSTNodesTextBlock.Text += newNodeValue + " ";
+
             if (!string.IsNullOrEmpty(BSTnodeInputTextBox.Text))
             {
                 int value = int.Parse(BSTnodeInputTextBox.Text);
@@ -962,6 +962,8 @@ namespace Trees_CourseProject
         
         private void RBreeAdd_Click(object sender, RoutedEventArgs e)
         {
+            string newNodeValue = RBnodeInputTextBox.Text;
+            UserRBNodesTextBlock.Text += newNodeValue + " ";
             if (!string.IsNullOrEmpty(RBnodeInputTextBox.Text))
             {
                 int value = int.Parse(RBnodeInputTextBox.Text);
@@ -1000,6 +1002,8 @@ namespace Trees_CourseProject
 
         private void AVLtreeAdd_Click(object sender, RoutedEventArgs e)
         {
+            string newNodeValue = AVLnodeInputTextBox.Text;
+            UserAVLNodesTextBlock.Text += newNodeValue + " ";
             if (!string.IsNullOrEmpty(AVLnodeInputTextBox.Text))
             {
                 int value = int.Parse(AVLnodeInputTextBox.Text);
@@ -1034,6 +1038,21 @@ namespace Trees_CourseProject
                     MessageBox.Show($"Узел со значением {value} не найден в AVL-дереве.", "Результат поиска", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
+        }
+
+        private void BackBSTtoTreeMenu_Click(object sender, RoutedEventArgs e)
+        {
+            MainTabControl.SelectedItem = TreeSelectionMenu;
+        }
+
+        private void BackRBTtoTreeMenu_Click(object sender, RoutedEventArgs e)
+        {
+            MainTabControl.SelectedItem = TreeSelectionMenu;
+        }
+
+        private void BackAVLTtoTreeMenu_Click(object sender, RoutedEventArgs e)
+        {
+            MainTabControl.SelectedItem = TreeSelectionMenu;
         }
     }
 
