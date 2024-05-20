@@ -756,7 +756,25 @@ namespace Trees_CourseProject
             binarySearchTreeDrawer = new TreeDrawer();
             avlTreeDrawer = new TreeDrawer();
             redBlackTreeDrawer = new TreeDrawer();
+
+            //List<string> styles = new List<string> { "ClassicTheme", "DarkTheme", "CustomTheme" };
+            //PresetTheme.SelectionChanged += ThemeChange;
+            //PresetTheme.ItemsSource = styles;
+            //PresetTheme.SelectedItem = "ClassicTheme";
         }
+
+        //private void ThemeChange(object sender, SelectionChangedEventArgs e)
+        //{
+        //    string style = PresetTheme.SelectedItem as string;
+        //    // определяем путь к файлу ресурсов
+        //    var uri = new Uri(style + ".xaml", UriKind.Relative);
+        //    // загружаем словарь ресурсов
+        //    ResourceDictionary resourceDict = Application.LoadComponent(uri) as ResourceDictionary;
+        //    // очищаем коллекцию ресурсов приложения
+        //    Application.Current.Resources.Clear();
+        //    // добавляем загруженный словарь ресурсов
+        //    Application.Current.Resources.MergedDictionaries.Add(resourceDict);
+        //}
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -1054,6 +1072,83 @@ namespace Trees_CourseProject
         {
             MainTabControl.SelectedItem = TreeSelectionMenu;
         }
+
+        private void PresetTheme_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (PresetTheme.SelectedIndex == 0)
+            {
+                SetClassicTheme();
+                UpdateTreeDrawingTabItem(TreeType.BinarySearchTree);
+            }
+            else if (PresetTheme.SelectedIndex == 1)
+            {
+                SetDarkTheme();
+                UpdateTreeDrawingTabItem(TreeType.AVLTree);
+            }
+            else if (PresetTheme.SelectedIndex == 2)
+            {
+                SetCustomTheme();
+                UpdateTreeDrawingTabItem(TreeType.RedBlackTree);
+            }
+        }
+
+        private void SetClassicTheme()
+        {
+            // Изменить цвет узлов дерева
+            BSTcanvas.Resources["BSTNodeColorBrush"] = (SolidColorBrush)Application.Current.Resources["BSTNodeColorBrush"];
+            RBcanvas.Resources["RBNodeRedColorBrush"] = (SolidColorBrush)Application.Current.Resources["RBNodeRedColorBrush"];
+            RBcanvas.Resources["RBNodeBlackColorBrush"] = (SolidColorBrush)Application.Current.Resources["RBNodeBlackColorBrush"];
+            AVLcanvas.Resources["AVLNodeColorBrush"] = (SolidColorBrush)Application.Current.Resources["AVLNodeColorBrush"];
+
+            // Изменить цвет стрелок
+            BSTcanvas.Resources["ArrowColorBrush"] = (SolidColorBrush)Application.Current.Resources["ArrowColorBrush"];
+            RBcanvas.Resources["ArrowColorBrush"] = (SolidColorBrush)Application.Current.Resources["ArrowColorBrush"];
+            AVLcanvas.Resources["ArrowColorBrush"] = (SolidColorBrush)Application.Current.Resources["ArrowColorBrush"];
+
+            // Изменить цвет эллипсов
+            BSTcanvas.Resources["EllipseColorBrush"] = (SolidColorBrush)Application.Current.Resources["EllipseColorBrush"];
+            RBcanvas.Resources["EllipseColorBrush"] = (SolidColorBrush)Application.Current.Resources["EllipseColorBrush"];
+            AVLcanvas.Resources["EllipseColorBrush"] = (SolidColorBrush)Application.Current.Resources["EllipseColorBrush"];
+        }
+
+        private void SetDarkTheme()
+        {
+            // Изменить цвет узлов дерева
+            BSTcanvas.Resources["BSTNodeColorBrush"] = (SolidColorBrush)Application.Current.Resources["BSTNodeColorBrush"];
+            RBcanvas.Resources["RBNodeRedColorBrush"] = (SolidColorBrush)Application.Current.Resources["RBNodeRedColorBrush"];
+            RBcanvas.Resources["RBNodeBlackColorBrush"] = (SolidColorBrush)Application.Current.Resources["RBNodeBlackColorBrush"];
+            AVLcanvas.Resources["AVLNodeColorBrush"] = (SolidColorBrush)Application.Current.Resources["AVLNodeColorBrush"];
+
+            // Изменить цвет стрелок
+            BSTcanvas.Resources["ArrowColorBrush"] = (SolidColorBrush)Application.Current.Resources["ArrowColorBrush"];
+            RBcanvas.Resources["ArrowColorBrush"] = (SolidColorBrush)Application.Current.Resources["ArrowColorBrush"];
+            AVLcanvas.Resources["ArrowColorBrush"] = (SolidColorBrush)Application.Current.Resources["ArrowColorBrush"];
+
+            // Изменить цвет эллипсов
+            BSTcanvas.Resources["EllipseColorBrush"] = (SolidColorBrush)Application.Current.Resources["EllipseColorBrush"];
+            RBcanvas.Resources["EllipseColorBrush"] = (SolidColorBrush)Application.Current.Resources["EllipseColorBrush"];
+            AVLcanvas.Resources["EllipseColorBrush"] = (SolidColorBrush)Application.Current.Resources["EllipseColorBrush"];
+        }
+
+        private void SetCustomTheme()
+        {
+            // Изменить цвет узлов дерева
+            BSTcanvas.Resources["BSTNodeColorBrush"] = (SolidColorBrush)Application.Current.Resources["BSTNodeColorBrush"];
+            RBcanvas.Resources["RBNodeRedColorBrush"] = (SolidColorBrush)Application.Current.Resources["RBNodeRedColorBrush"];
+            RBcanvas.Resources["RBNodeBlackColorBrush"] = (SolidColorBrush)Application.Current.Resources["RBNodeBlackColorBrush"];
+            AVLcanvas.Resources["AVLNodeColorBrush"] = (SolidColorBrush)Application.Current.Resources["AVLNodeColorBrush"];
+
+            // Изменить цвет стрелок
+            BSTcanvas.Resources["ArrowColorBrush"] = (SolidColorBrush)Application.Current.Resources["ArrowColorBrush"];
+            RBcanvas.Resources["ArrowColorBrush"] = (SolidColorBrush)Application.Current.Resources["ArrowColorBrush"];
+            AVLcanvas.Resources["ArrowColorBrush"] = (SolidColorBrush)Application.Current.Resources["ArrowColorBrush"];
+
+            // Изменить цвет эллипсов
+            BSTcanvas.Resources["EllipseColorBrush"] = (SolidColorBrush)Application.Current.Resources["EllipseColorBrush"];
+            RBcanvas.Resources["EllipseColorBrush"] = (SolidColorBrush)Application.Current.Resources["EllipseColorBrush"];
+            AVLcanvas.Resources["EllipseColorBrush"] = (SolidColorBrush)Application.Current.Resources["EllipseColorBrush"];
+        }
+
     }
 
 }

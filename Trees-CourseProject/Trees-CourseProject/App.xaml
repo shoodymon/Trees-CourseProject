@@ -9,6 +9,12 @@
     </Application.MainWindow>
     
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ClassicTheme.xaml" />
+                <ResourceDictionary Source="DarkTheme.xaml"/>
+                <ResourceDictionary Source="CustomTheme.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

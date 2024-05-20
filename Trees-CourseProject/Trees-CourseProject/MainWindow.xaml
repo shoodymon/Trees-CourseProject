@@ -74,14 +74,14 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    
+
                     <!-- Меню -->
                     <TextBlock Text="МЕНЮ" Margin="0,75,0,50" FontSize="48" HorizontalAlignment="Center" FontWeight="Bold" Foreground="Aqua">
                         <TextBlock.Effect>
                             <DropShadowEffect/>
                         </TextBlock.Effect>
                     </TextBlock>
-                    
+
                     <!-- Кнопка "Деревья" -->
                     <Button x:Name="TreesButton" Content="Деревья" Margin="0,70,0,20" Grid.Row="1" Width="200" Height="50" FontSize="24" Background="CornflowerBlue" BorderThickness="3" HorizontalAlignment="Center" Click="TreesButton_Click" FontWeight="Bold">
                         <Button.Style>
@@ -109,7 +109,7 @@
                             </Style>
                         </Button.Style>
                     </Button>
-                    
+
                     <!-- Кнопка "Настройки" -->
                     <Button x:Name="SettingsButton" Content="Настройки" Margin="0,20,0,20" Grid.Row="2" Width="200" Height="50" FontSize="24" Background="CornflowerBlue" BorderThickness="3" HorizontalAlignment="Center" Click="SettingsButton_Click" FontWeight="Bold">
                         <Button.Style>
@@ -137,7 +137,7 @@
                             </Style>
                         </Button.Style>
                     </Button>
-                    
+
                     <!-- Кнопка "Выход" -->
                     <Button x:Name="ExitButton" Content="Выход" Margin="0,20,0,20" Grid.Row="3" Width="200" Height="50" FontSize="24" Background="CornflowerBlue" BorderThickness="3" HorizontalAlignment="Center" Click="ExitButton_Click" FontWeight="Bold">
                         <Button.Style>
@@ -270,7 +270,7 @@
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="7*"/>
                     </Grid.ColumnDefinitions>
-                    
+
                     <Grid Grid.Row="1" Grid.Column="1" Height="50" Background="LightGoldenrodYellow" VerticalAlignment="Top">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
@@ -280,7 +280,7 @@
                         <TextBlock x:Name="UserBSTNodesTextBlock" Margin="20,0,0,0" Text="Добавленные узлы:  " FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" />
                         <GridSplitter Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Stretch" Width="5" Background="Gray" ResizeDirection="Columns" />
                     </Grid>
-                    
+
                     <StackPanel Grid.Column="0" Background="LightGray">
                         <TextBlock Text="Бинарное дерево поиска" Grid.Row="0" Margin="0,20,0,15" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
                         <TextBlock Text="Узел" Grid.Row="0" Margin="0,5,0,10" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
@@ -314,7 +314,7 @@
                 </Grid>
 
             </TabItem>
-            
+
             <!-- Меню выбора деревьев / КЧ-дерево -->
             <TabItem x:Name="RBtree">
                 <TabItem.Header>
@@ -329,7 +329,7 @@
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="7*"/>
                     </Grid.ColumnDefinitions>
-                    
+
                     <Grid Grid.Row="1" Grid.Column="1" Height="50" Background="LightGoldenrodYellow" VerticalAlignment="Top">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
@@ -339,7 +339,7 @@
                         <TextBlock x:Name="UserRBNodesTextBlock" Margin="20,0,0,0" Text="Добавленные узлы:  " FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" />
                         <GridSplitter Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Stretch" Width="5" Background="Gray" ResizeDirection="Columns" />
                     </Grid>
-                    
+
                     <StackPanel Grid.Column="0" Background="LightGray">
                         <TextBlock Text="КЧ-дерево" Grid.Row="0" Margin="0,20,0,15" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
                         <TextBlock Text="Узел" Grid.Row="0" Margin="0,5,0,10" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
@@ -373,7 +373,7 @@
                     </ScrollViewer>
                 </Grid>
             </TabItem>
-            
+
             <!-- Меню выбора деревьев / АВЛ-дерево -->
             <TabItem x:Name="AVLtree">
                 <TabItem.Header>
@@ -431,7 +431,7 @@
                     </ScrollViewer>
                 </Grid>
             </TabItem>
-            
+
             <!-- Главное меню / Настройки -->
             <TabItem x:Name="Settings">
                 <TabItem.Header>
@@ -440,6 +440,47 @@
                         <TextBlock Margin="3">Settings</TextBlock>
                     </StackPanel>
                 </TabItem.Header>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="1" Background="#FFC2AEAE">
+                        <TextBlock Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" FontWeight="Bold" FontStyle="Italic" TextAlignment="Center">
+                            Приветствую тебя, дорогой пользователь!
+                            <LineBreak/>
+                            Здесь ты можешь выбрать тему оконного приложения :)
+                        </TextBlock>
+                    </Grid>
+
+                    <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="1" Background="#FFD1D199">
+                        <ComboBox x:Name="PresetTheme" Margin="50,50,50,50" Width="500" Height="50" FontSize="36" SelectionChanged="PresetTheme_SelectionChanged">
+                            <ComboBoxItem Content="Классическая" FontSize="24" />
+                            <ComboBoxItem Content="Тёмная" FontSize="24"/>
+                            <ComboBoxItem Content="Пользовательская" FontSize="24"/>
+                        </ComboBox>
+                    </StackPanel>
+                    
+                    <StackPanel Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Background="#FF7386B2">
+                        <Button Content="Назад" 
+                                FontSize="30" 
+                                Height="100" 
+                                Width="150" 
+                                Background="#FF413D3D" 
+                                Foreground="#FF1EF40A" 
+                                HorizontalAlignment="Center" 
+                                Margin="0,290,0,0" 
+                                BorderThickness="5"
+                                BorderBrush="Black" 
+                                Click="BackToMenuButton_Click"/>
+                    </StackPanel>
+                </Grid>
             </TabItem>
         </TabControl>
 
