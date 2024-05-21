@@ -757,24 +757,25 @@ namespace Trees_CourseProject
             avlTreeDrawer = new TreeDrawer();
             redBlackTreeDrawer = new TreeDrawer();
 
-            //List<string> styles = new List<string> { "ClassicTheme", "DarkTheme", "CustomTheme" };
-            //PresetTheme.SelectionChanged += ThemeChange;
-            //PresetTheme.ItemsSource = styles;
-            //PresetTheme.SelectedItem = "ClassicTheme";
+            List<string> styles = new List<string> { "ClassicTheme", "DarkTheme", "CustomTheme" };
+            PresetTheme.SelectionChanged += ThemeChange;
+            PresetTheme.Items.Clear();
+            PresetTheme.ItemsSource = styles;
+            PresetTheme.SelectedItem = "ClassicTheme";
         }
 
-        //private void ThemeChange(object sender, SelectionChangedEventArgs e)
-        //{
-        //    string style = PresetTheme.SelectedItem as string;
-        //    // определяем путь к файлу ресурсов
-        //    var uri = new Uri(style + ".xaml", UriKind.Relative);
-        //    // загружаем словарь ресурсов
-        //    ResourceDictionary resourceDict = Application.LoadComponent(uri) as ResourceDictionary;
-        //    // очищаем коллекцию ресурсов приложения
-        //    Application.Current.Resources.Clear();
-        //    // добавляем загруженный словарь ресурсов
-        //    Application.Current.Resources.MergedDictionaries.Add(resourceDict);
-        //}
+        private void ThemeChange(object sender, SelectionChangedEventArgs e)
+        {
+            string style = PresetTheme.SelectedItem as string;
+            // определяем путь к файлу ресурсов
+            var uri = new Uri(style + ".xaml", UriKind.Relative);
+            // загружаем словарь ресурсов
+            ResourceDictionary resourceDict = Application.LoadComponent(uri) as ResourceDictionary;
+            // очищаем коллекцию ресурсов приложения
+            Application.Current.Resources.Clear();
+            // добавляем загруженный словарь ресурсов
+            Application.Current.Resources.MergedDictionaries.Add(resourceDict);
+        }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -1109,6 +1110,11 @@ namespace Trees_CourseProject
             BSTcanvas.Resources["EllipseColorBrush"] = (SolidColorBrush)Application.Current.Resources["EllipseColorBrush"];
             RBcanvas.Resources["EllipseColorBrush"] = (SolidColorBrush)Application.Current.Resources["EllipseColorBrush"];
             AVLcanvas.Resources["EllipseColorBrush"] = (SolidColorBrush)Application.Current.Resources["EllipseColorBrush"];
+
+            // Изменяем фон
+            BSTcanvas.Resources["CanvasBackgroundBrush"] = (SolidColorBrush)Application.Current.Resources["CanvasBackgroundBrush"];
+            RBcanvas.Resources["CanvasBackgroundBrush"] = (SolidColorBrush)Application.Current.Resources["CanvasBackgroundBrush"];
+            AVLcanvas.Resources["CanvasBackgroundBrush"] = (SolidColorBrush)Application.Current.Resources["CanvasBackgroundBrush"];
         }
 
         private void SetDarkTheme()
@@ -1128,6 +1134,11 @@ namespace Trees_CourseProject
             BSTcanvas.Resources["EllipseColorBrush"] = (SolidColorBrush)Application.Current.Resources["EllipseColorBrush"];
             RBcanvas.Resources["EllipseColorBrush"] = (SolidColorBrush)Application.Current.Resources["EllipseColorBrush"];
             AVLcanvas.Resources["EllipseColorBrush"] = (SolidColorBrush)Application.Current.Resources["EllipseColorBrush"];
+
+            // Изменяем фон
+            BSTcanvas.Resources["CanvasBackgroundBrush"] = (SolidColorBrush)Application.Current.Resources["CanvasBackgroundBrush"];
+            RBcanvas.Resources["CanvasBackgroundBrush"] = (SolidColorBrush)Application.Current.Resources["CanvasBackgroundBrush"];
+            AVLcanvas.Resources["CanvasBackgroundBrush"] = (SolidColorBrush)Application.Current.Resources["CanvasBackgroundBrush"];
         }
 
         private void SetCustomTheme()
@@ -1147,6 +1158,11 @@ namespace Trees_CourseProject
             BSTcanvas.Resources["EllipseColorBrush"] = (SolidColorBrush)Application.Current.Resources["EllipseColorBrush"];
             RBcanvas.Resources["EllipseColorBrush"] = (SolidColorBrush)Application.Current.Resources["EllipseColorBrush"];
             AVLcanvas.Resources["EllipseColorBrush"] = (SolidColorBrush)Application.Current.Resources["EllipseColorBrush"];
+
+            // Изменяем фон
+            BSTcanvas.Resources["CanvasBackgroundBrush"] = (SolidColorBrush)Application.Current.Resources["CanvasBackgroundBrush"];
+            RBcanvas.Resources["CanvasBackgroundBrush"] = (SolidColorBrush)Application.Current.Resources["CanvasBackgroundBrush"];
+            AVLcanvas.Resources["CanvasBackgroundBrush"] = (SolidColorBrush)Application.Current.Resources["CanvasBackgroundBrush"];
         }
 
     }

@@ -6,6 +6,7 @@
     <SolidColorBrush x:Key="AVLNodeColorBrush" Color="#FFA4B80E" />
     <SolidColorBrush x:Key="RBNodeBlackColorBrush" Color="LightGray" />
     <SolidColorBrush x:Key="RBNodeRedColorBrush" Color="Red" />
-    <SolidColorBrush x:Key="ArrowColorBrush" Color="#FF3311E9" />
+    <SolidColorBrush x:Key="ArrowColorBrush" Color="#FF0AC0C0" />
+    <SolidColorBrush x:Key="CanvasBackgroundBrush" Color="#FF6A6A6A" />
 
 </ResourceDictionary>

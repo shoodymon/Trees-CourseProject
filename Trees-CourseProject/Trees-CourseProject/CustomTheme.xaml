@@ -2,10 +2,11 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <SolidColorBrush x:Key="EllipseColorBrush" Color="Black" />
-    <SolidColorBrush x:Key="BSTNodeColorBrush" Color="LightGreen" />
-    <SolidColorBrush x:Key="AVLNodeColorBrush" Color="LightBlue" />
+    <SolidColorBrush x:Key="BSTNodeColorBrush" Color="#FFF7FA00" />
+    <SolidColorBrush x:Key="AVLNodeColorBrush" Color="#FFF4BA03" />
     <SolidColorBrush x:Key="RBNodeBlackColorBrush" Color="LightGray" />
     <SolidColorBrush x:Key="RBNodeRedColorBrush" Color="Red" />
     <SolidColorBrush x:Key="ArrowColorBrush" Color="Black" />
+    <SolidColorBrush x:Key="CanvasBackgroundBrush" Color="#FFF200FF" />
 
 </ResourceDictionary>

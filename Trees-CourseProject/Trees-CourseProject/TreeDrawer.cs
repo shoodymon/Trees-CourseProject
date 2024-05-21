@@ -212,6 +212,7 @@ namespace Trees_CourseProject
         public void DrawBinarySearchTree(BinarySearchTree.TreeNode root, Canvas canvas)
         {
             canvas.Children.Clear();
+            canvas.Background = (Brush)Application.Current.Resources["CanvasBackgroundBrush"];
             if (root != null)
             {
                 DrawBST(root, canvas.ActualWidth / 2, 20, canvas.ActualWidth / 4, 80, canvas);
@@ -221,6 +222,7 @@ namespace Trees_CourseProject
         public void DrawAVLTree(AVLTree.AVLNode root, Canvas canvas)
         {
             canvas.Children.Clear();
+            canvas.Background = (Brush)Application.Current.Resources["CanvasBackgroundBrush"];
             if (root != null)
             {
                 DrawAVL(root, canvas.ActualWidth / 2, 20, canvas.ActualWidth / 4, 80, canvas);
@@ -230,6 +232,7 @@ namespace Trees_CourseProject
         public void DrawRedBlackTree(RedBlackTree.RBNode root, Canvas canvas)
         {
             canvas.Children.Clear();
+            canvas.Background = (Brush)Application.Current.Resources["CanvasBackgroundBrush"];
             if (root != null)
             {
                 DrawRB(root, canvas.ActualWidth / 2, 20, canvas.ActualWidth / 4, 80, canvas);
