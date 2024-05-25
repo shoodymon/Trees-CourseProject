@@ -432,6 +432,319 @@ namespace Trees_CourseProject
 
     }
 
+    //public class RedBlackTree
+    //{
+    //    public enum Color { Red, Black }
+
+    //    public class RBNode
+    //    {
+    //        public int Value;
+    //        public Color NodeColor;
+    //        public RBNode Left;
+    //        public RBNode Right;
+    //        public RBNode Parent;
+
+    //        public RBNode(int value)
+    //        {
+    //            Value = value;
+    //            NodeColor = Color.Red;
+    //            Left = null;
+    //            Right = null;
+    //            Parent = null;
+    //        }
+    //    }
+
+    //    public RBNode root;
+    //    private Canvas canvas;
+
+    //    public RedBlackTree(Canvas canvas)
+    //    {
+    //        root = null;
+    //        this.canvas = canvas;
+    //    }
+
+    //    // Методы вставки, удаления и балансировки дерева будут здесь
+    //    public void Insert(int value)
+    //    {
+    //        root = Insert(root, null, value); // Начинаем с корня, у корня нет родителя
+    //                                          // Корень всегда должен быть черным, чтобы удовлетворить свойства красно-черного дерева
+    //        root.NodeColor = Color.Black;
+    //        Console.WriteLine($"Inserted node with value {value}");
+    //    }
+
+    //    private RBNode Insert(RBNode node, RBNode parent, int value)
+    //    {
+    //        if (node == null)
+    //        {
+    //            node = new RBNode(value);
+    //            node.Parent = parent;
+    //            return node;
+    //        }
+
+    //        if (value < node.Value)
+    //            node.Left = Insert(node.Left, node, value);
+    //        else if (value > node.Value)
+    //            node.Right = Insert(node.Right, node, value);
+    //        else
+    //            return node; // Значение уже существует в дереве, ничего не делаем
+
+    //        // Проверяем и исправляем свойства красно-черного дерева
+    //        if (node.Parent != null && node.Parent.NodeColor == Color.Red)
+    //        {
+    //            RBNode parentNode = node.Parent;
+    //            RBNode grandparent = parentNode.Parent;
+    //            RBNode uncle = null;
+
+    //            if (grandparent != null)
+    //            {
+    //                uncle = grandparent.Left == parentNode ? grandparent.Right : grandparent.Left;
+
+    //                // Случай 1: Дядя красный
+    //                if (uncle != null && uncle.NodeColor == Color.Red)
+    //                {
+    //                    parentNode.NodeColor = Color.Black;
+    //                    uncle.NodeColor = Color.Black;
+    //                    grandparent.NodeColor = Color.Red;
+    //                    return Insert(grandparent, grandparent.Parent, node.Value); // Продолжаем проверку свойств с дедушкой
+    //                }
+
+    //                // Случай 2: Дядя черный, текущий узел - правый потомок своего родителя
+    //                if (parentNode.Right == node && grandparent.Left == parentNode)
+    //                {
+    //                    parentNode = LeftRotate(parentNode);
+    //                    node = node.Left;
+    //                }
+    //                // Случай 3: Дядя черный, текущий узел - левый потомок своего родителя
+    //                else if (parentNode.Left == node && grandparent.Right == parentNode)
+    //                {
+    //                    parentNode = RightRotate(parentNode);
+    //                    node = node.Right;
+    //                }
+
+    //                // Случай 4: Дядя черный, текущий узел - левый потомок своего родителя
+    //                parentNode.NodeColor = Color.Black;
+    //                grandparent.NodeColor = Color.Red;
+    //                if (parentNode.Left == node && grandparent.Left == parentNode)
+    //                    grandparent = RightRotate(grandparent);
+    //                else
+    //                    grandparent = LeftRotate(grandparent);
+    //            }
+    //        }
+
+
+    //        return node;
+    //    }
+
+    //    public bool Search(int value)
+    //    {
+    //        return Search(root, value);
+    //    }
+
+    //    private bool Search(RBNode node, int value)
+    //    {
+    //        if (node == null)
+    //            return false;
+
+    //        if (value == node.Value)
+    //            return true;
+
+    //        if (value < node.Value)
+    //            return Search(node.Left, value);
+    //        else
+    //            return Search(node.Right, value);
+    //    }
+
+    //    public void Delete(int value)
+    //    {
+    //        root = Delete(root, value);
+    //    }
+
+    //    private RBNode Delete(RBNode node, int value)
+    //    {
+    //        if (node == null)
+    //            return null;
+
+    //        if (value < node.Value)
+    //            node.Left = Delete(node.Left, value);
+    //        else if (value > node.Value)
+    //            node.Right = Delete(node.Right, value);
+    //        else
+    //        {
+    //            // Найден узел для удаления
+    //            if (node.Left == null)
+    //                return node.Right;
+    //            else if (node.Right == null)
+    //                return node.Left;
+
+    //            // У узла есть оба потомка
+    //            // Находим наименьший узел в правом поддереве (или наибольший в левом поддереве)
+    //            RBNode minRight = FindMin(node.Right);
+    //            // Копируем значение найденного узла в текущий узел
+    //            node.Value = minRight.Value;
+    //            // Рекурсивно удаляем найденный узел
+    //            node.Right = Delete(node.Right, minRight.Value);
+    //        }
+
+    //        // Проверяем и исправляем свойства красно-черного дерева после удаления узла
+    //        if (node.NodeColor == Color.Black)
+    //        {
+    //            if (node.Left != null && node.Left.NodeColor == Color.Red)
+    //                node.Left.NodeColor = Color.Black;
+    //            else if (node.Right != null && node.Right.NodeColor == Color.Red)
+    //                node.Right.NodeColor = Color.Black;
+    //            else
+    //                node = FixDoubleBlack(node);
+    //        }
+
+    //        return node;
+    //    }
+
+    //    // Вспомогательный метод для поиска наименьшего узла в дереве
+    //    private RBNode FindMin(RBNode node)
+    //    {
+    //        while (node.Left != null)
+    //            node = node.Left;
+    //        return node;
+    //    }
+
+    //    // Вспомогательный метод для исправления двойной черной высоты узла
+    //    private RBNode FixDoubleBlack(RBNode node)
+    //    {
+    //        if (node == root)
+    //            return root;
+
+    //        if (node.Parent == null)
+    //            return node;
+
+    //        RBNode originalNode = node; // Сохраняем исходное значение node
+
+    //        RBNode sibling = GetSibling(node);
+    //        RBNode parent = node.Parent;
+
+    //        if (sibling == null)
+    //            return FixDoubleBlack(parent);
+
+    //        if (sibling.NodeColor == Color.Black)
+    //        {
+    //            // Случай 1: Брат черный и у брата есть красный потомок
+    //            if ((sibling.Left != null && sibling.Left.NodeColor == Color.Red) || (sibling.Right != null && sibling.Right.NodeColor == Color.Red))
+    //            {
+    //                if (sibling.Left != null && sibling.Left.NodeColor == Color.Red)
+    //                {
+    //                    if (parent.Left == sibling)
+    //                    {
+    //                        sibling.Left.NodeColor = sibling.NodeColor;
+    //                        sibling.NodeColor = parent.NodeColor;
+    //                        RightRotate(parent);
+    //                    }
+    //                    else
+    //                    {
+    //                        sibling.Left.NodeColor = parent.NodeColor;
+    //                        RightRotate(sibling);
+    //                        LeftRotate(parent);
+    //                    }
+    //                }
+    //                else
+    //                {
+    //                    if (parent.Left == sibling)
+    //                    {
+    //                        sibling.Right.NodeColor = parent.NodeColor;
+    //                        LeftRotate(sibling);
+    //                        RightRotate(parent);
+    //                    }
+    //                    else
+    //                    {
+    //                        sibling.Right.NodeColor = sibling.NodeColor;
+    //                        sibling.NodeColor = parent.NodeColor;
+    //                        LeftRotate(parent);
+    //                    }
+    //                }
+    //                parent.NodeColor = Color.Black;
+    //            }
+    //            // Случай 2: Брат черный и у брата нет красного потомка
+    //            else
+    //            {
+    //                sibling.NodeColor = Color.Red;
+    //                if (parent.NodeColor == Color.Black)
+    //                {
+    //                    if (originalNode == node) // Проверка на изменение значения node
+    //                        return node;
+    //                    else
+    //                        return FixDoubleBlack(parent);
+    //                }
+    //                else
+    //                    parent.NodeColor = Color.Black;
+    //            }
+    //        }
+    //        // Случай 3: Брат красный
+    //        else
+    //        {
+    //            if (parent.Left == sibling)
+    //                RightRotate(parent);
+    //            else
+    //                LeftRotate(parent);
+    //            parent.NodeColor = Color.Red;
+    //            sibling.NodeColor = Color.Black;
+
+    //            if (originalNode == node) // Проверка на изменение значения node
+    //                return node;
+    //            else
+    //                return FixDoubleBlack(node);
+    //        }
+
+    //        return node;
+    //    }
+
+    //    // Вспомогательный метод для получения брата узла
+    //    private RBNode GetSibling(RBNode node)
+    //    {
+    //        if (node.Parent == null)
+    //            return null;
+
+    //        if (node == node.Parent.Left)
+    //            return node.Parent.Right;
+    //        else
+    //            return node.Parent.Left;
+    //    }
+
+    //    private RBNode LeftRotate(RBNode node)
+    //    {
+    //        RBNode newRoot = node.Right;
+    //        node.Right = newRoot.Left;
+    //        if (newRoot.Left != null)
+    //            newRoot.Left.Parent = node;
+    //        newRoot.Parent = node.Parent;
+    //        if (node.Parent == null)
+    //            root = newRoot;
+    //        else if (node == node.Parent.Left)
+    //            node.Parent.Left = newRoot;
+    //        else
+    //            node.Parent.Right = newRoot;
+    //        newRoot.Left = node;
+    //        node.Parent = newRoot;
+    //        return newRoot;
+    //    }
+
+    //    private RBNode RightRotate(RBNode node)
+    //    {
+    //        RBNode newRoot = node.Left;
+    //        node.Left = newRoot.Right;
+    //        if (newRoot.Right != null)
+    //            newRoot.Right.Parent = node;
+    //        newRoot.Parent = node.Parent;
+    //        if (node.Parent == null)
+    //            root = newRoot;
+    //        else if (node == node.Parent.Right)
+    //            node.Parent.Right = newRoot;
+    //        else
+    //            node.Parent.Left = newRoot;
+    //        newRoot.Right = node;
+    //        node.Parent = newRoot;
+    //        return newRoot;
+    //    }
+
+    //}
+
     public class RedBlackTree
     {
         public enum Color { Red, Black }
@@ -463,71 +776,260 @@ namespace Trees_CourseProject
             this.canvas = canvas;
         }
 
-        // Методы вставки, удаления и балансировки дерева будут здесь
         public void Insert(int value)
         {
-            root = Insert(root, null, value); // Начинаем с корня, у корня нет родителя
-                                              // Корень всегда должен быть черным, чтобы удовлетворить свойства красно-черного дерева
-            root.NodeColor = Color.Black;
-            Console.WriteLine($"Inserted node with value {value}");
+            RBNode newNode = new RBNode(value);
+            root = Insert(root, newNode);
+            FixViolation(newNode);
         }
 
-        private RBNode Insert(RBNode node, RBNode parent, int value)
+        private RBNode Insert(RBNode root, RBNode node)
+        {
+            if (root == null)
+                return node;
+
+            if (node.Value < root.Value)
+            {
+                root.Left = Insert(root.Left, node);
+                root.Left.Parent = root;
+            }
+            else if (node.Value > root.Value)
+            {
+                root.Right = Insert(root.Right, node);
+                root.Right.Parent = root;
+            }
+            return root;
+        }
+
+        private void FixViolation(RBNode node)
+        {
+            while (node != root && node.Parent.NodeColor == Color.Red)
+            {
+                RBNode parentNode = node.Parent;
+                RBNode grandparent = parentNode.Parent;
+
+                if (parentNode == grandparent.Left)
+                {
+                    RBNode uncle = grandparent.Right;
+                    if (uncle != null && uncle.NodeColor == Color.Red)
+                    {
+                        grandparent.NodeColor = Color.Red;
+                        parentNode.NodeColor = Color.Black;
+                        uncle.NodeColor = Color.Black;
+                        node = grandparent;
+                    }
+                    else
+                    {
+                        if (node == parentNode.Right)
+                        {
+                            LeftRotate(parentNode);
+                            node = parentNode;
+                            parentNode = node.Parent;
+                        }
+                        RightRotate(grandparent);
+                        Color tempColor = parentNode.NodeColor;
+                        parentNode.NodeColor = grandparent.NodeColor;
+                        grandparent.NodeColor = tempColor;
+                        node = parentNode;
+                    }
+                }
+                else
+                {
+                    RBNode uncle = grandparent.Left;
+                    if (uncle != null && uncle.NodeColor == Color.Red)
+                    {
+                        grandparent.NodeColor = Color.Red;
+                        parentNode.NodeColor = Color.Black;
+                        uncle.NodeColor = Color.Black;
+                        node = grandparent;
+                    }
+                    else
+                    {
+                        if (node == parentNode.Left)
+                        {
+                            RightRotate(parentNode);
+                            node = parentNode;
+                            parentNode = node.Parent;
+                        }
+                        LeftRotate(grandparent);
+                        Color tempColor = parentNode.NodeColor;
+                        parentNode.NodeColor = grandparent.NodeColor;
+                        grandparent.NodeColor = tempColor;
+                        node = parentNode;
+                    }
+                }
+            }
+            root.NodeColor = Color.Black;
+        }
+
+        public void Delete(int value)
+        {
+            root = Delete(root, value);
+        }
+
+        private RBNode Delete(RBNode node, int value)
         {
             if (node == null)
-            {
-                node = new RBNode(value);
-                node.Parent = parent;
-                return node;
-            }
+                return null;
 
             if (value < node.Value)
-                node.Left = Insert(node.Left, node, value);
+                node.Left = Delete(node.Left, value);
             else if (value > node.Value)
-                node.Right = Insert(node.Right, node, value);
+                node.Right = Delete(node.Right, value);
             else
-                return node; // Значение уже существует в дереве, ничего не делаем
-
-            // Проверяем и исправляем свойства красно-черного дерева
-            if (node.Parent != null && node.Parent.NodeColor == Color.Red)
             {
-                RBNode parentNode = node.Parent; // Изменено имя переменной
-                RBNode grandparent = parentNode.Parent;
-                RBNode uncle = grandparent.Left == parentNode ? grandparent.Right : grandparent.Left;
-
-                // Случай 1: Дядя красный
-                if (uncle != null && uncle.NodeColor == Color.Red)
+                if (node.Left == null || node.Right == null)
                 {
-                    parentNode.NodeColor = Color.Black;
-                    uncle.NodeColor = Color.Black;
-                    grandparent.NodeColor = Color.Red;
-                    return Insert(grandparent, grandparent.Parent, node.Value); // Продолжаем проверку свойств с дедушкой
-                }
+                    RBNode temp = node.Left ?? node.Right;
 
-                // Случай 2: Дядя черный, текущий узел - правый потомок своего родителя
-                if (parentNode.Right == node && grandparent.Left == parentNode)
-                {
-                    parentNode = LeftRotate(parentNode);
-                    node = node.Left;
-                }
-                // Случай 3: Дядя черный, текущий узел - левый потомок своего родителя
-                else if (parentNode.Left == node && grandparent.Right == parentNode)
-                {
-                    parentNode = RightRotate(parentNode);
-                    node = node.Right;
-                }
+                    if (temp == null)
+                    {
+                        temp = node;
+                        node = null;
+                    }
+                    else
+                    {
+                        node = temp;
+                    }
 
-                // Случай 4: Дядя черный, текущий узел - левый потомок своего родителя
-                parentNode.NodeColor = Color.Black;
-                grandparent.NodeColor = Color.Red;
-                if (parentNode.Left == node && grandparent.Left == parentNode)
-                    grandparent = RightRotate(grandparent);
+                    if (node != null)
+                        node.Parent = temp.Parent;
+                }
                 else
-                    grandparent = LeftRotate(grandparent);
+                {
+                    RBNode temp = FindMin(node.Right);
+                    node.Value = temp.Value;
+                    node.Right = Delete(node.Right, temp.Value);
+                }
             }
 
+            if (node == null)
+                return node;
+
+            return FixDoubleBlack(node);
+        }
+
+        private RBNode FindMin(RBNode node)
+        {
+            while (node.Left != null)
+                node = node.Left;
+            return node;
+        }
+
+        private RBNode FixDoubleBlack(RBNode node)
+        {
+            if (node == root)
+                return node;
+
+            RBNode sibling = GetSibling(node);
+            RBNode parent = node.Parent;
+
+            if (sibling == null)
+            {
+                return FixDoubleBlack(parent);
+            }
+
+            if (sibling.NodeColor == Color.Red)
+            {
+                parent.NodeColor = Color.Red;
+                sibling.NodeColor = Color.Black;
+                if (sibling == parent.Left)
+                    RightRotate(parent);
+                else
+                    LeftRotate(parent);
+                sibling = GetSibling(node);
+            }
+
+            if ((sibling.Left == null || sibling.Left.NodeColor == Color.Black) &&
+                (sibling.Right == null || sibling.Right.NodeColor == Color.Black))
+            {
+                sibling.NodeColor = Color.Red;
+                if (parent.NodeColor == Color.Black)
+                    return FixDoubleBlack(parent);
+                else
+                    parent.NodeColor = Color.Black;
+            }
+            else
+            {
+                if (sibling == parent.Left)
+                {
+                    if (sibling.Left != null && sibling.Left.NodeColor == Color.Red)
+                    {
+                        sibling.Left.NodeColor = sibling.NodeColor;
+                        sibling.NodeColor = parent.NodeColor;
+                        RightRotate(parent);
+                    }
+                    else
+                    {
+                        sibling.Right.NodeColor = parent.NodeColor;
+                        LeftRotate(sibling);
+                        RightRotate(parent);
+                    }
+                }
+                else
+                {
+                    if (sibling.Right != null && sibling.Right.NodeColor == Color.Red)
+                    {
+                        sibling.Right.NodeColor = sibling.NodeColor;
+                        sibling.NodeColor = parent.NodeColor;
+                        LeftRotate(parent);
+                    }
+                    else
+                    {
+                        sibling.Left.NodeColor = parent.NodeColor;
+                        RightRotate(sibling);
+                        LeftRotate(parent);
+                    }
+                }
+                parent.NodeColor = Color.Black;
+            }
 
             return node;
+        }
+
+        private RBNode GetSibling(RBNode node)
+        {
+            if (node.Parent == null)
+                return null;
+
+            if (node == node.Parent.Left)
+                return node.Parent.Right;
+            else
+                return node.Parent.Left;
+        }
+
+        private void LeftRotate(RBNode node)
+        {
+            RBNode newRoot = node.Right;
+            node.Right = newRoot.Left;
+            if (newRoot.Left != null)
+                newRoot.Left.Parent = node;
+            newRoot.Parent = node.Parent;
+            if (node.Parent == null)
+                root = newRoot;
+            else if (node == node.Parent.Left)
+                node.Parent.Left = newRoot;
+            else
+                node.Parent.Right = newRoot;
+            newRoot.Left = node;
+            node.Parent = newRoot;
+        }
+
+        private void RightRotate(RBNode node)
+        {
+            RBNode newRoot = node.Left;
+            node.Left = newRoot.Right;
+            if (newRoot.Right != null)
+                newRoot.Right.Parent = node;
+            newRoot.Parent = node.Parent;
+            if (node.Parent == null)
+                root = newRoot;
+            else if (node == node.Parent.Right)
+                node.Parent.Right = newRoot;
+            else
+                node.Parent.Left = newRoot;
+            newRoot.Right = node;
+            node.Parent = newRoot;
         }
 
         public bool Search(int value)
@@ -548,182 +1050,6 @@ namespace Trees_CourseProject
             else
                 return Search(node.Right, value);
         }
-
-        public void Delete(int value)
-        {
-            root = Delete(root, value);
-        }
-
-        private RBNode Delete(RBNode node, int value)
-        {
-            if (node == null)
-                return null;
-
-            if (value < node.Value)
-                node.Left = Delete(node.Left, value);
-            else if (value > node.Value)
-                node.Right = Delete(node.Right, value);
-            else
-            {
-                // Найден узел для удаления
-                if (node.Left == null)
-                    return node.Right;
-                else if (node.Right == null)
-                    return node.Left;
-
-                // У узла есть оба потомка
-                // Находим наименьший узел в правом поддереве (или наибольший в левом поддереве)
-                RBNode minRight = FindMin(node.Right);
-                // Копируем значение найденного узла в текущий узел
-                node.Value = minRight.Value;
-                // Рекурсивно удаляем найденный узел
-                node.Right = Delete(node.Right, minRight.Value);
-            }
-
-            // Проверяем и исправляем свойства красно-черного дерева после удаления узла
-            if (node.NodeColor == Color.Black)
-            {
-                if (node.Left != null && node.Left.NodeColor == Color.Red)
-                    node.Left.NodeColor = Color.Black;
-                else if (node.Right != null && node.Right.NodeColor == Color.Red)
-                    node.Right.NodeColor = Color.Black;
-                else
-                    node = FixDoubleBlack(node);
-            }
-
-            return node;
-        }
-
-        // Вспомогательный метод для поиска наименьшего узла в дереве
-        private RBNode FindMin(RBNode node)
-        {
-            while (node.Left != null)
-                node = node.Left;
-            return node;
-        }
-
-        // Вспомогательный метод для исправления двойной черной высоты узла
-        private RBNode FixDoubleBlack(RBNode node)
-        {
-            if (node.Parent == null)
-                return node;
-
-            RBNode sibling = GetSibling(node);
-            RBNode parent = node.Parent;
-
-            if (sibling == null)
-                return FixDoubleBlack(parent);
-
-            if (sibling.NodeColor == Color.Black)
-            {
-                // Случай 1: Брат черный и у брата есть красный потомок
-                if ((sibling.Left != null && sibling.Left.NodeColor == Color.Red) || (sibling.Right != null && sibling.Right.NodeColor == Color.Red))
-                {
-                    if (sibling.Left != null && sibling.Left.NodeColor == Color.Red)
-                    {
-                        if (parent.Left == sibling)
-                        {
-                            sibling.Left.NodeColor = sibling.NodeColor;
-                            sibling.NodeColor = parent.NodeColor;
-                            RightRotate(parent);
-                        }
-                        else
-                        {
-                            sibling.Left.NodeColor = parent.NodeColor;
-                            RightRotate(sibling);
-                            LeftRotate(parent);
-                        }
-                    }
-                    else
-                    {
-                        if (parent.Left == sibling)
-                        {
-                            sibling.Right.NodeColor = parent.NodeColor;
-                            LeftRotate(sibling);
-                            RightRotate(parent);
-                        }
-                        else
-                        {
-                            sibling.Right.NodeColor = sibling.NodeColor;
-                            sibling.NodeColor = parent.NodeColor;
-                            LeftRotate(parent);
-                        }
-                    }
-                    parent.NodeColor = Color.Black;
-                }
-                // Случай 2: Брат черный и у брата нет красного потомка
-                else
-                {
-                    sibling.NodeColor = Color.Red;
-                    if (parent.NodeColor == Color.Black)
-                        return FixDoubleBlack(parent);
-                    else
-                        parent.NodeColor = Color.Black;
-                }
-            }
-            // Случай 3: Брат красный
-            else
-            {
-                if (parent.Left == sibling)
-                    RightRotate(parent);
-                else
-                    LeftRotate(parent);
-                parent.NodeColor = Color.Red;
-                sibling.NodeColor = Color.Black;
-                return FixDoubleBlack(node);
-            }
-
-            return node;
-        }
-
-        // Вспомогательный метод для получения брата узла
-        private RBNode GetSibling(RBNode node)
-        {
-            if (node.Parent == null)
-                return null;
-
-            if (node == node.Parent.Left)
-                return node.Parent.Right;
-            else
-                return node.Parent.Left;
-        }
-
-        private RBNode LeftRotate(RBNode node)
-        {
-            RBNode newRoot = node.Right;
-            node.Right = newRoot.Left;
-            if (newRoot.Left != null)
-                newRoot.Left.Parent = node;
-            newRoot.Parent = node.Parent;
-            if (node.Parent == null)
-                root = newRoot;
-            else if (node == node.Parent.Left)
-                node.Parent.Left = newRoot;
-            else
-                node.Parent.Right = newRoot;
-            newRoot.Left = node;
-            node.Parent = newRoot;
-            return newRoot;
-        }
-
-        private RBNode RightRotate(RBNode node)
-        {
-            RBNode newRoot = node.Left;
-            node.Left = newRoot.Right;
-            if (newRoot.Right != null)
-                newRoot.Right.Parent = node;
-            newRoot.Parent = node.Parent;
-            if (node.Parent == null)
-                root = newRoot;
-            else if (node == node.Parent.Right)
-                node.Parent.Right = newRoot;
-            else
-                node.Parent.Left = newRoot;
-            newRoot.Right = node;
-            node.Parent = newRoot;
-            return newRoot;
-        }
-
     }
 
     /// <summary>
@@ -745,7 +1071,7 @@ namespace Trees_CourseProject
         public MainWindow()
         {
             InitializeComponent();
-            treeManager = new TreeManager(canvas);
+            treeManager = new TreeManager();
             treeDrawer = new TreeDrawer();
 
             binarySearchTreeManager = new TreeManager(BSTcanvas, null, null, binarySearchTreeDrawer);
@@ -776,96 +1102,6 @@ namespace Trees_CourseProject
             // добавляем загруженный словарь ресурсов
             Application.Current.Resources.MergedDictionaries.Add(resourceDict);
         }
-
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            TextBox textBox = (TextBox)sender;
-            if (string.IsNullOrEmpty(textBox.Text))
-            {
-                textBox.Foreground = Brushes.LightGray;
-            }
-            else
-            {
-                textBox.Foreground = Brushes.Black;
-            }
-        }
-
-        private void TreeTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            canvas.Children.Clear();
-
-            ComboBox comboBox = (ComboBox)sender;
-            TreeType selectedTree = (TreeType)comboBox.SelectedIndex;
-
-            UpdateTreeDrawing(selectedTree);
-        }
-
-        private void AddButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (!string.IsNullOrEmpty(nodeInputTextBox.Text))
-            {
-                int value = int.Parse(nodeInputTextBox.Text); // Извлечение значения из поля ввода
-                TreeType selectedTree = (TreeType)TreeTypeComboBox.SelectedIndex;
-                treeManager.Insert(value, selectedTree);
-                UpdateTreeDrawing(selectedTree);
-            }
-        }
-
-        private void DeleteButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (!string.IsNullOrEmpty(nodeInputTextBox.Text))
-            {
-                int value = int.Parse(nodeInputTextBox.Text);
-                TreeType selectedTree = (TreeType)TreeTypeComboBox.SelectedIndex;
-                treeManager.Delete(value, selectedTree);
-                UpdateTreeDrawing(selectedTree);
-            }
-        }
-
-        private void SearchButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (!string.IsNullOrEmpty(nodeInputTextBox.Text))
-            {
-                int value = int.Parse(nodeInputTextBox.Text);
-                TreeType selectedTree = (TreeType)TreeTypeComboBox.SelectedIndex;
-                bool found = treeManager.Search(value, selectedTree);
-
-                if (found)
-                {
-                    MessageBox.Show($"Узел со значением {value} найден в дереве.", "Результат поиска", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-                else
-                {
-                    MessageBox.Show($"Узел со значением {value} не найден в дереве.", "Результат поиска", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-            }
-        }
-
-        private void UpdateTreeDrawing(TreeType treeType)
-        {
-            switch (treeType)
-            {
-                case TreeType.BinarySearchTree:
-                    if (MainTabControl.SelectedItem == BSTree)
-                    {
-                        treeDrawer.DrawBinarySearchTree(treeManager.binarySearchTree.root, BSTcanvas);
-                    }
-                    break;
-                case TreeType.AVLTree:
-                    if (MainTabControl.SelectedItem == AVLtree)
-                    {
-                        treeDrawer.DrawAVLTree(treeManager.avlTree.root, AVLcanvas);
-                    }
-                    break;
-                case TreeType.RedBlackTree:
-                    if (MainTabControl.SelectedItem == RBtree)
-                    {
-                        treeDrawer.DrawRedBlackTree(treeManager.redBlackTree.root, RBcanvas);
-                    }
-                    break;
-            }
-        }
-
 
         private void UpdateTreeDrawingTabItem(TreeType treeType)
         {
