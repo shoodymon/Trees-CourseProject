@@ -16,422 +16,7 @@ using static Trees_CourseProject.MainWindow;
 
 namespace Trees_CourseProject
 {
-    public class BinarySearchTree
-    {
-        public class TreeNode
-        {
-            private int value;
-
-            // Открыто доступное свойство Value, которое обеспечивает доступ к значению переменной value извне класса.
-            public int Value
-            {
-                get { return value; }
-                set
-                {
-                    if (value >= -99 && value <= 99)
-                    {
-                        this.value = value;
-                    }
-                    else
-                    {
-                        throw new ArgumentOutOfRangeException("Value must be between -99 and 99");
-                    }
-                }
-            }
-
-            public TreeNode Left { get; set; }
-            public TreeNode Right { get; set; }
-
-            // Конструктор с одним аргументом для инициализации значения узла
-            public TreeNode(int value)
-            {
-                Value = value;
-                Left = null;
-                Right = null;
-            }
-        }
-
-        public TreeNode root;
-        private Canvas canvas;
-
-        public BinarySearchTree(Canvas canvas)
-        {
-            root = null;
-            this.canvas = canvas;
-        }
-
-        // Метод для добавления значения в дерево
-        public void Insert(int value)
-        {
-            root = Insert(root, value);
-            Console.WriteLine($"Inserted node with value {value}");
-        }
-
-        // Вспомогательный метод для рекурсивного добавления значения в дерево
-        private TreeNode Insert(TreeNode node, int value)
-        {
-            if (node == null)
-            {
-                node = new TreeNode(value);
-            }
-            else if (value < node.Value)
-            {
-                node.Left = Insert(node.Left, value);
-            }
-            else if (value > node.Value)
-            {
-                node.Right = Insert(node.Right, value);
-            }
-            // Если значение уже существует в дереве, ничего не делаем
-            return node;
-        }
-
-        // Метод для удаления значения из дерева
-        public void Delete(int value)
-        {
-            root = Delete(root, value);
-            Console.WriteLine($"Deleted node with value {value}");
-        }
-
-        // Вспомогательный метод для рекурсивного удаления значения из дерева
-        private TreeNode Delete(TreeNode node, int value)
-        {
-            if (node == null)
-            {
-                return null;
-            }
-            else if (value < node.Value)
-            {
-                node.Left = Delete(node.Left, value);
-            }
-            else if (value > node.Value)
-            {
-                node.Right = Delete(node.Right, value);
-            }
-            else
-            {
-                // Узел найден, начинаем процесс удаления
-                if (node.Left == null)
-                {
-                    return node.Right;
-                }
-                else if (node.Right == null)
-                {
-                    return node.Left;
-                }
-                else
-                {
-                    // У узла есть оба потомка
-                    // Находим наименьший узел в правом поддереве (или наибольший в левом поддереве)
-                    TreeNode minRight = FindMin(node.Right);
-                    // Копируем значение найденного узла в текущий узел
-                    node.Value = minRight.Value;
-                    // Рекурсивно удаляем найденный узел
-                    node.Right = Delete(node.Right, minRight.Value);
-                }
-            }
-            return node;
-        }
-
-        // Метод для поиска наименьшего значения в дереве
-        private TreeNode FindMin(TreeNode node)
-        {
-            while (node.Left != null)
-            {
-                node = node.Left;
-            }
-            return node;
-        }
-
-        // Метод для поиска значения в дереве
-        public bool Search(int value)
-        {
-            return Search(root, value);
-        }
-
-        // Вспомогательный метод для рекурсивного поиска значения в дереве
-        private bool Search(TreeNode node, int value)
-        {
-            if (node == null)
-            {
-                return false;
-            }
-            else if (node.Value == value)
-            {
-                return true;
-            }
-            else if (value < node.Value)
-            {
-                return Search(node.Left, value);
-            }
-            else
-            {
-                return Search(node.Right, value);
-            }
-        }
-
-        // Методы для обхода дерева в различных порядках (прямом, симметричном и обратном)
-        public void PreOrderTraversal()
-        {
-            PreOrderTraversal(root);
-        }
-
-        private void PreOrderTraversal(TreeNode node)
-        {
-            if (node != null)
-            {
-                Console.Write(node.Value + " ");
-                PreOrderTraversal(node.Left);
-                PreOrderTraversal(node.Right);
-            }
-        }
-
-        public void InOrderTraversal()
-        {
-            InOrderTraversal(root);
-        }
-
-        private void InOrderTraversal(TreeNode node)
-        {
-            if (node != null)
-            {
-                InOrderTraversal(node.Left);
-                Console.Write(node.Value + " ");
-                InOrderTraversal(node.Right);
-            }
-        }
-
-        public void PostOrderTraversal()
-        {
-            PostOrderTraversal(root);
-        }
-
-        private void PostOrderTraversal(TreeNode node)
-        {
-            if (node != null)
-            {
-                PostOrderTraversal(node.Left);
-                PostOrderTraversal(node.Right);
-                Console.Write(node.Value + " ");
-            }
-        }
-
-    }
-
-    public class AVLTree
-    {
-        public class AVLNode
-        {
-            public int Value;
-            public int Height;
-            public AVLNode Left;
-            public AVLNode Right;
-
-            public AVLNode(int value)
-            {
-                Value = value;
-                Height = 1;
-                Left = null;
-                Right = null;
-            }
-        }
-
-        public AVLNode root;
-        private Canvas canvas;
-
-        public AVLTree(Canvas canvas)
-        {
-            root = null;
-            this.canvas = canvas;
-        }
-
-        private int Height(AVLNode node)
-        {
-            return node == null ? 0 : node.Height;
-        }
-
-        private int BalanceFactor(AVLNode node)
-        {
-            return Height(node.Left) - Height(node.Right);
-        }
-
-        private void UpdateHeight(AVLNode node)
-        {
-            node.Height = 1 + Math.Max(Height(node.Left), Height(node.Right));
-        }
-
-        private AVLNode RightRotate(AVLNode pivot)
-        {
-            AVLNode newRoot = pivot.Left;
-            pivot.Left = newRoot.Right;
-            newRoot.Right = pivot;
-            UpdateHeight(pivot);
-            UpdateHeight(newRoot);
-            return newRoot;
-        }
-
-        private AVLNode LeftRotate(AVLNode newRoot)
-        {
-            AVLNode pivot = newRoot.Right;
-            newRoot.Right = pivot.Left;
-            pivot.Left = newRoot;
-            UpdateHeight(newRoot);
-            UpdateHeight(pivot);
-            return pivot;
-        }
-
-        private AVLNode Insert(AVLNode node, int value)
-        {
-            if (node == null)
-                return new AVLNode(value);
-
-            if (value < node.Value)
-                node.Left = Insert(node.Left, value);
-            else if (value > node.Value)
-                node.Right = Insert(node.Right, value);
-            else
-                return node; // Значение уже существует в дереве, ничего не делаем
-
-            UpdateHeight(node);
-
-            int balance = BalanceFactor(node);
-
-            // Перебалансировка дерева, если необходимо
-            if (balance > 1)
-            {
-                // Вставленное значение меньше значения в левом поддереве
-                if (value < node.Left.Value)
-                    return RightRotate(node);
-                // Вставленное значение больше значения в левом поддереве
-                if (value > node.Left.Value)
-                {
-                    node.Left = LeftRotate(node.Left);
-                    return RightRotate(node);
-                }
-            }
-            else if (balance < -1)
-            {
-                // Вставленное значение больше значения в правом поддереве
-                if (value > node.Right.Value)
-                    return LeftRotate(node);
-                // Вставленное значение меньше значения в правом поддереве
-                if (value < node.Right.Value)
-                {
-                    node.Right = RightRotate(node.Right);
-                    return LeftRotate(node);
-                }
-            }
-
-            return node;
-        }
-
-        public void Insert(int value)
-        {
-            root = Insert(root, value);
-            Console.WriteLine($"Inserted node with value {value}");
-        }
-
-        private AVLNode Delete(AVLNode root, int key)
-        {
-            if (root == null)
-                return root;
-
-            if (key < root.Value)
-                root.Left = Delete(root.Left, key);
-            else if (key > root.Value)
-                root.Right = Delete(root.Right, key);
-            else
-            {
-                if (root.Left == null || root.Right == null)
-                {
-                    AVLNode temp = root.Left != null ? root.Left : root.Right;
-
-                    // Узел с одним или без детей
-                    if (temp == null)
-                    {
-                        temp = root;
-                        root = null;
-                    }
-                    else
-                        root = temp;
-                }
-                else
-                {
-                    // Узел с двумя детьми: получаем наименьший узел в правом поддереве
-                    AVLNode temp = MinValueNode(root.Right);
-
-                    // Копируем данные наименьшего узла в текущий узел
-                    root.Value = temp.Value;
-
-                    // Удаляем наименьший узел в правом поддереве
-                    root.Right = Delete(root.Right, temp.Value);
-                }
-            }
-
-            // Если дерево состоит только из одного узла, возвращаем его
-            if (root == null)
-                return root;
-
-            // Обновляем высоту текущего узла
-            UpdateHeight(root);
-
-            // Получаем коэффициент балансировки текущего узла
-            int balance = BalanceFactor(root);
-
-            // Перебалансировка дерева, если необходимо
-            if (balance > 1 && BalanceFactor(root.Left) >= 0)
-                return RightRotate(root);
-
-            if (balance < -1 && BalanceFactor(root.Right) <= 0)
-                return LeftRotate(root);
-
-            if (balance > 1 && BalanceFactor(root.Left) < 0)
-            {
-                root.Left = LeftRotate(root.Left);
-                return RightRotate(root);
-            }
-
-            if (balance < -1 && BalanceFactor(root.Right) > 0)
-            {
-                root.Right = RightRotate(root.Right);
-                return LeftRotate(root);
-            }
-
-            return root;
-        }
-
-        private AVLNode MinValueNode(AVLNode node)
-        {
-            AVLNode current = node;
-            while (current.Left != null)
-                current = current.Left;
-            return current;
-        }
-
-        public void Delete(int key)
-        {
-            root = Delete(root, key);
-        }
-
-        public bool Search(int key)
-        {
-            return Search(root, key);
-        }
-
-        private bool Search(AVLNode node, int key)
-        {
-            if (node == null)
-                return false;
-            if (key == node.Value)
-                return true;
-            if (key < node.Value)
-                return Search(node.Left, key);
-            else
-                return Search(node.Right, key);
-        }
-
-    }
-
+    
     //public class RedBlackTree
     //{
     //    public enum Color { Red, Black }
@@ -745,313 +330,6 @@ namespace Trees_CourseProject
 
     //}
 
-    public class RedBlackTree
-    {
-        public enum Color { Red, Black }
-
-        public class RBNode
-        {
-            public int Value;
-            public Color NodeColor;
-            public RBNode Left;
-            public RBNode Right;
-            public RBNode Parent;
-
-            public RBNode(int value)
-            {
-                Value = value;
-                NodeColor = Color.Red;
-                Left = null;
-                Right = null;
-                Parent = null;
-            }
-        }
-
-        public RBNode root;
-        private Canvas canvas;
-
-        public RedBlackTree(Canvas canvas)
-        {
-            root = null;
-            this.canvas = canvas;
-        }
-
-        public void Insert(int value)
-        {
-            RBNode newNode = new RBNode(value);
-            root = Insert(root, newNode);
-            FixViolation(newNode);
-        }
-
-        private RBNode Insert(RBNode root, RBNode node)
-        {
-            if (root == null)
-                return node;
-
-            if (node.Value < root.Value)
-            {
-                root.Left = Insert(root.Left, node);
-                root.Left.Parent = root;
-            }
-            else if (node.Value > root.Value)
-            {
-                root.Right = Insert(root.Right, node);
-                root.Right.Parent = root;
-            }
-            return root;
-        }
-
-        private void FixViolation(RBNode node)
-        {
-            while (node != root && node.Parent.NodeColor == Color.Red)
-            {
-                RBNode parentNode = node.Parent;
-                RBNode grandparent = parentNode.Parent;
-
-                if (parentNode == grandparent.Left)
-                {
-                    RBNode uncle = grandparent.Right;
-                    if (uncle != null && uncle.NodeColor == Color.Red)
-                    {
-                        grandparent.NodeColor = Color.Red;
-                        parentNode.NodeColor = Color.Black;
-                        uncle.NodeColor = Color.Black;
-                        node = grandparent;
-                    }
-                    else
-                    {
-                        if (node == parentNode.Right)
-                        {
-                            LeftRotate(parentNode);
-                            node = parentNode;
-                            parentNode = node.Parent;
-                        }
-                        RightRotate(grandparent);
-                        Color tempColor = parentNode.NodeColor;
-                        parentNode.NodeColor = grandparent.NodeColor;
-                        grandparent.NodeColor = tempColor;
-                        node = parentNode;
-                    }
-                }
-                else
-                {
-                    RBNode uncle = grandparent.Left;
-                    if (uncle != null && uncle.NodeColor == Color.Red)
-                    {
-                        grandparent.NodeColor = Color.Red;
-                        parentNode.NodeColor = Color.Black;
-                        uncle.NodeColor = Color.Black;
-                        node = grandparent;
-                    }
-                    else
-                    {
-                        if (node == parentNode.Left)
-                        {
-                            RightRotate(parentNode);
-                            node = parentNode;
-                            parentNode = node.Parent;
-                        }
-                        LeftRotate(grandparent);
-                        Color tempColor = parentNode.NodeColor;
-                        parentNode.NodeColor = grandparent.NodeColor;
-                        grandparent.NodeColor = tempColor;
-                        node = parentNode;
-                    }
-                }
-            }
-            root.NodeColor = Color.Black;
-        }
-
-        public void Delete(int value)
-        {
-            root = Delete(root, value);
-        }
-
-        private RBNode Delete(RBNode node, int value)
-        {
-            if (node == null)
-                return null;
-
-            if (value < node.Value)
-                node.Left = Delete(node.Left, value);
-            else if (value > node.Value)
-                node.Right = Delete(node.Right, value);
-            else
-            {
-                if (node.Left == null || node.Right == null)
-                {
-                    RBNode temp = node.Left ?? node.Right;
-
-                    if (temp == null)
-                    {
-                        temp = node;
-                        node = null;
-                    }
-                    else
-                    {
-                        node = temp;
-                    }
-
-                    if (node != null)
-                        node.Parent = temp.Parent;
-                }
-                else
-                {
-                    RBNode temp = FindMin(node.Right);
-                    node.Value = temp.Value;
-                    node.Right = Delete(node.Right, temp.Value);
-                }
-            }
-
-            if (node == null)
-                return node;
-
-            return FixDoubleBlack(node);
-        }
-
-        private RBNode FindMin(RBNode node)
-        {
-            while (node.Left != null)
-                node = node.Left;
-            return node;
-        }
-
-        private RBNode FixDoubleBlack(RBNode node)
-        {
-            if (node == root)
-                return node;
-
-            RBNode sibling = GetSibling(node);
-            RBNode parent = node.Parent;
-
-            if (sibling == null)
-            {
-                return FixDoubleBlack(parent);
-            }
-
-            if (sibling.NodeColor == Color.Red)
-            {
-                parent.NodeColor = Color.Red;
-                sibling.NodeColor = Color.Black;
-                if (sibling == parent.Left)
-                    RightRotate(parent);
-                else
-                    LeftRotate(parent);
-                sibling = GetSibling(node);
-            }
-
-            if ((sibling.Left == null || sibling.Left.NodeColor == Color.Black) &&
-                (sibling.Right == null || sibling.Right.NodeColor == Color.Black))
-            {
-                sibling.NodeColor = Color.Red;
-                if (parent.NodeColor == Color.Black)
-                    return FixDoubleBlack(parent);
-                else
-                    parent.NodeColor = Color.Black;
-            }
-            else
-            {
-                if (sibling == parent.Left)
-                {
-                    if (sibling.Left != null && sibling.Left.NodeColor == Color.Red)
-                    {
-                        sibling.Left.NodeColor = sibling.NodeColor;
-                        sibling.NodeColor = parent.NodeColor;
-                        RightRotate(parent);
-                    }
-                    else
-                    {
-                        sibling.Right.NodeColor = parent.NodeColor;
-                        LeftRotate(sibling);
-                        RightRotate(parent);
-                    }
-                }
-                else
-                {
-                    if (sibling.Right != null && sibling.Right.NodeColor == Color.Red)
-                    {
-                        sibling.Right.NodeColor = sibling.NodeColor;
-                        sibling.NodeColor = parent.NodeColor;
-                        LeftRotate(parent);
-                    }
-                    else
-                    {
-                        sibling.Left.NodeColor = parent.NodeColor;
-                        RightRotate(sibling);
-                        LeftRotate(parent);
-                    }
-                }
-                parent.NodeColor = Color.Black;
-            }
-
-            return node;
-        }
-
-        private RBNode GetSibling(RBNode node)
-        {
-            if (node.Parent == null)
-                return null;
-
-            if (node == node.Parent.Left)
-                return node.Parent.Right;
-            else
-                return node.Parent.Left;
-        }
-
-        private void LeftRotate(RBNode node)
-        {
-            RBNode newRoot = node.Right;
-            node.Right = newRoot.Left;
-            if (newRoot.Left != null)
-                newRoot.Left.Parent = node;
-            newRoot.Parent = node.Parent;
-            if (node.Parent == null)
-                root = newRoot;
-            else if (node == node.Parent.Left)
-                node.Parent.Left = newRoot;
-            else
-                node.Parent.Right = newRoot;
-            newRoot.Left = node;
-            node.Parent = newRoot;
-        }
-
-        private void RightRotate(RBNode node)
-        {
-            RBNode newRoot = node.Left;
-            node.Left = newRoot.Right;
-            if (newRoot.Right != null)
-                newRoot.Right.Parent = node;
-            newRoot.Parent = node.Parent;
-            if (node.Parent == null)
-                root = newRoot;
-            else if (node == node.Parent.Right)
-                node.Parent.Right = newRoot;
-            else
-                node.Parent.Left = newRoot;
-            newRoot.Right = node;
-            node.Parent = newRoot;
-        }
-
-        public bool Search(int value)
-        {
-            return Search(root, value);
-        }
-
-        private bool Search(RBNode node, int value)
-        {
-            if (node == null)
-                return false;
-
-            if (value == node.Value)
-                return true;
-
-            if (value < node.Value)
-                return Search(node.Left, value);
-            else
-                return Search(node.Right, value);
-        }
-    }
-
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
@@ -1174,14 +452,42 @@ namespace Trees_CourseProject
             MainTabControl.SelectedItem = StartUpMenu;
         }
 
+        // ref, out, in используются для входных и выходных параметров при передаче по ссылке
+        private bool TryGetValidatedInput(string input, out int value)
+        {
+            value = 0;
+
+            // Проверка на пустое значение
+            if (string.IsNullOrEmpty(input))
+            {
+                MessageBox.Show("Введите значение.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+
+            // Проверка, является ли введенное значение числом
+            if (!int.TryParse(input, out value))
+            {
+                MessageBox.Show("Введите числовое значение.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+
+            // Проверка, что значение в диапазоне от -99 до 99
+            if (value < -99 || value > 99)
+            {
+                MessageBox.Show("Введите значение в диапазоне от -99 до 99.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+
+            return true;
+        }
+
         private void BSTreeAdd_Click(object sender, RoutedEventArgs e)
         {
             string newNodeValue = BSTnodeInputTextBox.Text;
-            UserBSTNodesTextBlock.Text += newNodeValue + " ";
 
-            if (!string.IsNullOrEmpty(BSTnodeInputTextBox.Text))
+            if (TryGetValidatedInput(newNodeValue, out int value))
             {
-                int value = int.Parse(BSTnodeInputTextBox.Text);
+                UserBSTNodesTextBlock.Text += value + " ";
                 binarySearchTreeManager.Insert(value, TreeType.BinarySearchTree);
                 UpdateTreeDrawingTabItem(TreeType.BinarySearchTree);
             }
@@ -1189,13 +495,15 @@ namespace Trees_CourseProject
 
         private void BSTreeDelete_Click(object sender, RoutedEventArgs e)
         {
-            if (!string.IsNullOrEmpty(BSTnodeInputTextBox.Text))
+            string newNodeValue = BSTnodeInputTextBox.Text;
+
+            if (TryGetValidatedInput(newNodeValue, out int value))
             {
-                int value = int.Parse(BSTnodeInputTextBox.Text);
                 binarySearchTreeManager.Delete(value, TreeType.BinarySearchTree);
                 UpdateTreeDrawingTabItem(TreeType.BinarySearchTree);
             }
         }
+
 
         private void BSTreeSearch_Click(object sender, RoutedEventArgs e)
         {
@@ -1214,14 +522,14 @@ namespace Trees_CourseProject
                 }
             }
         }
-        
+
         private void RBreeAdd_Click(object sender, RoutedEventArgs e)
         {
             string newNodeValue = RBnodeInputTextBox.Text;
-            UserRBNodesTextBlock.Text += newNodeValue + " ";
-            if (!string.IsNullOrEmpty(RBnodeInputTextBox.Text))
+
+            if (TryGetValidatedInput(newNodeValue, out int value))
             {
-                int value = int.Parse(RBnodeInputTextBox.Text);
+                UserRBNodesTextBlock.Text += value + " ";
                 redBlackTreeManager.Insert(value, TreeType.RedBlackTree);
                 UpdateTreeDrawingTabItem(TreeType.RedBlackTree);
             }
@@ -1229,13 +537,15 @@ namespace Trees_CourseProject
 
         private void RBreeDelete_Click(object sender, RoutedEventArgs e)
         {
-            if (!string.IsNullOrEmpty(RBnodeInputTextBox.Text))
+            string newNodeValue = RBnodeInputTextBox.Text;
+
+            if (TryGetValidatedInput(newNodeValue, out int value))
             {
-                int value = int.Parse(RBnodeInputTextBox.Text);
                 redBlackTreeManager.Delete(value, TreeType.RedBlackTree);
                 UpdateTreeDrawingTabItem(TreeType.RedBlackTree);
             }
         }
+
 
         private void RBtreeSearch_Click(object sender, RoutedEventArgs e)
         {
@@ -1258,10 +568,10 @@ namespace Trees_CourseProject
         private void AVLtreeAdd_Click(object sender, RoutedEventArgs e)
         {
             string newNodeValue = AVLnodeInputTextBox.Text;
-            UserAVLNodesTextBlock.Text += newNodeValue + " ";
-            if (!string.IsNullOrEmpty(AVLnodeInputTextBox.Text))
+
+            if (TryGetValidatedInput(newNodeValue, out int value))
             {
-                int value = int.Parse(AVLnodeInputTextBox.Text);
+                UserAVLNodesTextBlock.Text += value + " ";
                 avlTreeManager.Insert(value, TreeType.AVLTree);
                 UpdateTreeDrawingTabItem(TreeType.AVLTree);
             }
@@ -1269,13 +579,15 @@ namespace Trees_CourseProject
 
         private void AVLtreeDelete_Click(object sender, RoutedEventArgs e)
         {
-            if (!string.IsNullOrEmpty(AVLnodeInputTextBox.Text))
+            string newNodeValue = AVLnodeInputTextBox.Text;
+
+            if (TryGetValidatedInput(newNodeValue, out int value))
             {
-                int value = int.Parse(AVLnodeInputTextBox.Text);
                 avlTreeManager.Delete(value, TreeType.AVLTree);
                 UpdateTreeDrawingTabItem(TreeType.AVLTree);
             }
         }
+
 
         private void AVLtreeSearch_Click(object sender, RoutedEventArgs e)
         {

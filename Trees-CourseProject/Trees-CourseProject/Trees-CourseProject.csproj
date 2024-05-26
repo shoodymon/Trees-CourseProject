@@ -55,6 +55,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AVLTree.cs" />
+    <Compile Include="BinarySearchTree.cs" />
+    <Compile Include="RedBlackTree.cs" />
     <Compile Include="SplashScreen.xaml.cs">
       <DependentUpon>SplashScreen.xaml</DependentUpon>
     </Compile>
