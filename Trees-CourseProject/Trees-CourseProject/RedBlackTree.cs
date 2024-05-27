@@ -128,6 +128,9 @@ namespace Trees_CourseProject
         public void Delete(int value)
         {
             root = Delete(root, value);
+            // Проверяем, если новый корень существует и он красный, то перекрашиваем его в черный
+            if (root != null)
+                root.NodeColor = Color.Black;
         }
 
         private RBNode Delete(RBNode node, int value)
@@ -136,41 +139,67 @@ namespace Trees_CourseProject
                 return null;
 
             if (value < node.Value)
+            {
                 node.Left = Delete(node.Left, value);
+            }
             else if (value > node.Value)
+            {
                 node.Right = Delete(node.Right, value);
+            }
             else
             {
+                // Узел для удаления найден
+
+                // Если у узла нет потомков или только один потомок
                 if (node.Left == null || node.Right == null)
                 {
-                    RBNode temp = node.Left ?? node.Right;
-
-                    if (temp == null)
-                    {
-                        temp = node;
-                        node = null;
-                    }
-                    else
-                    {
-                        node = temp;
-                    }
-
-                    if (node != null)
-                        node.Parent = temp.Parent;
+                    return delete_one_child(node);
                 }
                 else
                 {
-                    RBNode temp = FindMin(node.Right);
-                    node.Value = temp.Value;
-                    node.Right = Delete(node.Right, temp.Value);
+                    // Узел имеет два потомка
+                    // Найдем наибольший узел в левом поддереве
+                    RBNode successor = FindMax(node.Left);
+
+                    // Скопируем значение наибольшего узла левого поддерева в удаляемый узел
+                    node.Value = successor.Value;
+
+                    // Удалим наибольший узел из левого поддерева
+                    node.Left = Delete(node.Left, successor.Value);
                 }
             }
 
-            if (node == null)
-                return node;
-
-            return FixDoubleBlack(node);
+            return node;
         }
+
+        private RBNode delete_one_child(RBNode node)
+        {
+            RBNode child = node.Left != null ? node.Left : node.Right;
+
+            if (node.NodeColor == Color.Black)
+            {
+                if (child != null && child.NodeColor == Color.Red)
+                {
+                    child.NodeColor = Color.Black;
+                }
+                else
+                {
+                    FixDoubleBlack(child);
+                }
+            }
+
+            replace_node(node, child);
+            return child;
+        }
+
+        private RBNode FindMax(RBNode node)
+        {
+            while (node.Right != null)
+                node = node.Right;
+            return node;
+        }
+
+        // ZAEBIS
 
         private RBNode FindMin(RBNode node)
         {
@@ -179,72 +208,96 @@ namespace Trees_CourseProject
             return node;
         }
 
+        private void replace_node(RBNode n, RBNode child)
+        {
+            if (child != null)
+            {
+                child.Parent = n.Parent;
+            }
+
+            if (n.Parent == null)
+            {
+                root = child;
+            }
+            else if (n == n.Parent.Left)
+            {
+                n.Parent.Left = child;
+            }
+            else
+            {
+                n.Parent.Right = child;
+            }
+        }
+
         private RBNode FixDoubleBlack(RBNode node)
         {
             if (node == root)
                 return node;
 
             RBNode sibling = GetSibling(node);
-            RBNode parent = node.Parent;
+            RBNode parent = null;
+
+            if (node != null)
+                parent = node.Parent;
 
             if (sibling == null)
             {
-                return FixDoubleBlack(parent);
-            }
-
-            if (sibling.NodeColor == Color.Red)
-            {
-                parent.NodeColor = Color.Red;
-                sibling.NodeColor = Color.Black;
-                if (sibling == parent.Left)
-                    RightRotate(parent);
-                else
-                    LeftRotate(parent);
-                sibling = GetSibling(node);
-            }
-
-            if ((sibling.Left == null || sibling.Left.NodeColor == Color.Black) &&
-                (sibling.Right == null || sibling.Right.NodeColor == Color.Black))
-            {
-                sibling.NodeColor = Color.Red;
-                if (parent.NodeColor == Color.Black)
-                    return FixDoubleBlack(parent);
-                else
-                    parent.NodeColor = Color.Black;
+                if (parent != null)
+                    FixDoubleBlack(parent);
             }
             else
             {
-                if (sibling == parent.Left)
+                if (sibling.NodeColor == Color.Red)
                 {
-                    if (sibling.Left != null && sibling.Left.NodeColor == Color.Red)
+                    if (parent != null)
                     {
-                        sibling.Left.NodeColor = sibling.NodeColor;
-                        sibling.NodeColor = parent.NodeColor;
-                        RightRotate(parent);
-                    }
-                    else
-                    {
-                        sibling.Right.NodeColor = parent.NodeColor;
-                        LeftRotate(sibling);
-                        RightRotate(parent);
+                        parent.NodeColor = Color.Red;
+                        sibling.NodeColor = Color.Black;
+                        if (sibling == parent.Left)
+                            RightRotate(parent);
+                        else
+                            LeftRotate(parent);
+                        FixDoubleBlack(node);
                     }
                 }
                 else
                 {
-                    if (sibling.Right != null && sibling.Right.NodeColor == Color.Red)
+                    if (
+                        (sibling.Left == null || sibling.Left.NodeColor == Color.Black) &&
+                        (sibling.Right == null || sibling.Right.NodeColor == Color.Black)
+                    )
                     {
-                        sibling.Right.NodeColor = sibling.NodeColor;
-                        sibling.NodeColor = parent.NodeColor;
-                        LeftRotate(parent);
+                        sibling.NodeColor = Color.Red;
+                        if (parent != null && parent.NodeColor == Color.Black)
+                            FixDoubleBlack(parent);
                     }
                     else
                     {
-                        sibling.Left.NodeColor = parent.NodeColor;
-                        RightRotate(sibling);
-                        LeftRotate(parent);
+                        if (
+                            sibling == parent?.Left &&
+                            (sibling.Right == null || sibling.Right.NodeColor == Color.Black) &&
+                            (sibling.Left != null && sibling.Left.NodeColor == Color.Red)
+                        )
+                        {
+                            sibling.NodeColor = Color.Red;
+                            sibling.Left.NodeColor = Color.Black;
+                            RightRotate(sibling);
+                        }
+                        else if (
+                            sibling == parent?.Right &&
+                            (sibling.Left == null || sibling.Left.NodeColor == Color.Black) &&
+                            (sibling.Right != null && sibling.Right.NodeColor == Color.Red)
+                        )
+                        {
+                            sibling.NodeColor = Color.Red;
+                            sibling.Right.NodeColor = Color.Black;
+                            LeftRotate(sibling);
+                        }
+
+                        sibling = GetSibling(node);
+                        FixDoubleBlack(node);
                     }
                 }
-                parent.NodeColor = Color.Black;
             }
 
             return node;
@@ -252,7 +305,7 @@ namespace Trees_CourseProject
 
         private RBNode GetSibling(RBNode node)
         {
-            if (node.Parent == null)
+            if (node == null || node.Parent == null)
                 return null;
 
             if (node == node.Parent.Left)

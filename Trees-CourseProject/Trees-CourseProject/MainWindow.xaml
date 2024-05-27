@@ -239,7 +239,7 @@
                     <StackPanel Grid.Column="0" Background="LightGray">
                         <TextBlock Text="Бинарное дерево поиска" Grid.Row="0" Margin="0,20,0,15" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
                         <TextBlock Text="Узел" Grid.Row="0" Margin="0,5,0,10" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
-                        <TextBox x:Name="BSTnodeInputTextBox" Margin="0,0,0,10">
+                        <TextBox x:Name="BSTnodeInputTextBox" Margin="10,0,10,10">
                             <TextBox.Style>
                                 <Style TargetType="TextBox">
                                     <Style.Triggers>
@@ -298,7 +298,7 @@
                     <StackPanel Grid.Column="0" Background="LightGray">
                         <TextBlock Text="КЧ-дерево" Grid.Row="0" Margin="0,20,0,15" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
                         <TextBlock Text="Узел" Grid.Row="0" Margin="0,5,0,10" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
-                        <TextBox x:Name="RBnodeInputTextBox" Margin="0,0,0,10">
+                        <TextBox x:Name="RBnodeInputTextBox" Margin="10,0,10,10">
                             <TextBox.Style>
                                 <Style TargetType="TextBox">
                                     <Style.Triggers>
@@ -357,7 +357,7 @@
                     <StackPanel Grid.Column="0" Background="LightGray">
                         <TextBlock Text="АВЛ-дерево" Grid.Row="0" Margin="0,20,0,15" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
                         <TextBlock Text="Узел" Grid.Row="0" Margin="0,5,0,10" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
-                        <TextBox x:Name="AVLnodeInputTextBox" Margin="0,0,0,10">
+                        <TextBox x:Name="AVLnodeInputTextBox" Margin="10,0,10,10">
                             <TextBox.Style>
                                 <Style TargetType="TextBox">
                                     <Style.Triggers>
